@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carro de Compras</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/estilo.css">
+</head>
+<body>
+
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <img src="../img/coretechlogo.jpg" alt="" width="40" height="34" class="d-inline-block align-text-top">
+          <a class="navbar-brand" href="../html/index.html">CoreTech</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="../html/index.html">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="../html/acercade.html">Quiénes somos</a>
+              </li>
+              <li class="nav-itemCarrito">
+                <a class="nav-link active" aria-current="page" href="../html/carrocompras.html">Carro de compras</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="../html/cuenta.html">Cuenta</a>
+              </li>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Categoria
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="../html/GamaAlta.html">Gama Alta</a></li>
+                <li><a class="dropdown-item" href="../html/GamaMedia.html">Gama Media</a></li>
+                <li><a class="dropdown-item" href="../html/GamaBaja.html">Gama Baja</a></li>
+                <li><hr class="dropdown-divider"></li>
+              </ul>
+            
+
+              
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search">
+              <a class="btn btn-primary" href="../html/busqueda.html" role="button">Buscar</a>
+            </form>
+          </div>
+        </div>
+    </nav>
+
+ 
+    
+    <!--Modal-->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Eliminar compra</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <p>¿Estás seguro que quieres eliminar tu carro de compras?</p>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Eliminar</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!--Modal4-->
+    <div class="modal fade" id="staticBackdrop4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Eliminar compra</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+          <p>Elemento borrado del carro de compras</p>
+          </div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Entendido</button>
+          </div>
+      </div>
+      </div>
+  </div>
+
+    <!--Modal2-->
+    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Compra realizada</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <p>Gracias por comprar en CoreTech!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Entendido</button>
+            </div>
+            
+        </div>
+        </div>
+    </div>
+    
+    <!--Modal3-->
+    <div class="modal fade" id="staticBackdropEliminar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Compra realizada</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <p>Gracias por comprar en CoreTech!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Entendido</button>
+            </div>
+            
+        </div>
+        </div>
+    </div>
+  
+
+    <div style="color: white;">
+        <h2>Mi Carro de Compra</h2>
+        <p>Sus productos en la lista de compra se encuentran aquí</p>
+        <br>
+    </div>
+<center>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-12">
+                <div class="card" style="width: 18rem;">
+                    <img src="../img/cargadortipoc.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Cargador Tipo C</h5>
+                      <p class="card-text">$18.000</p>
+                      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+                        Descartar Compra
+                    </button>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="col-md-3 col-sm-12">
+                <div class="card" style="width: 18rem;">
+                    <img src="../img/nokia5110.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">Nokia 5110</h5>
+                      <p class="card-text">$1.990.000</p>
+                      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+                        Descartar Compra
+                    </button>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="col-md-3 col-sm-12">
+                <div class="card" style="width: 18rem;">
+                    <img src="../img/geforcertx3060.jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                      <h5 class="card-title">GeForce RTX 3060</h5>
+                      <p class="card-text">$320.000</p>
+                      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop4">
+                        Descartar Compra
+                    </button>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="col-md-3 col-sm-12">
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Descartar Compra
+                </button>
+
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">
+                    Finalizar Compra
+                </button>
+            </div>
+
+
+
+        </div>
+    </div>
+  </center>
+
+
+
+       
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    </nav>
+</body>
+</html>
