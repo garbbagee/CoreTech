@@ -1,47 +1,64 @@
-body{
-    background: url('../img/fondo.jpg'); 
+body {
+  background: url('../img/fondo.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   margin: 0;
   height: 100%;
 }
-.container{
-    width: 100%;
+
+.container {
+  width: 100%;
 }
-h1{text-align: center;}
-h3{text-align: left;}
-h4{text-align: center;}
+
+h1 {
+  text-align: center;
+}
+
+h3 {
+  text-align: left;
+}
+
+h4 {
+  text-align: center;
+}
 
 .container2 {
-    height: 100%; 
-    padding-right: 150px;
-    display: flex;
-    align-items: center;
-  }
+  height: 100%;
+  padding-right: 150px;
+  display: flex;
+  align-items: center;
+}
 
-.cuad1{
-    width: 25%; height: 400px;
+.cuad1 {
+  width: 25%;
+  height: 400px;
 }
-.cuad2{
-    width: 25%; height: 400px;
+
+.cuad2 {
+  width: 25%;
+  height: 400px;
 }
-.cuad3{
-    width: 25%; height: 400px;
+
+.cuad3 {
+  width: 25%;
+  height: 400px;
 }
-.cuad4{
-    width: 25%; height: 400px;
+
+.cuad4 {
+  width: 25%;
+  height: 400px;
 }
 
 .productoizq {
-    flex: 1;
-  }
+  flex: 1;
+}
 
 .descripder {
   flex: 1;
   text-align: right;
   padding-right: 20px;
   background-color: #6a6faa;
-  background: url('../img/fondo2.jpg'); 
+  background: url('../img/fondo2.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   margin: 100;
@@ -50,11 +67,16 @@ h4{text-align: center;}
 
 .rectangulo {
   background-image: url('../img/fondopolvo.jpg');
-  width: 100%; /* Ancho del rectángulo */
-  height: 400px; /* Altura del rectángulo */
-  background-color: #a8b5fd; /* Color del rectángulo (blanco en este caso) */
-  border: 2px solid #000000; /* Borde del rectángulo (negro en este caso) */
-  margin: auto; /* Centra horizontalmente */
+  width: 100%;
+  /* Ancho del rectángulo */
+  height: 400px;
+  /* Altura del rectángulo */
+  background-color: #a8b5fd;
+  /* Color del rectángulo (blanco en este caso) */
+  border: 2px solid #000000;
+  /* Borde del rectángulo (negro en este caso) */
+  margin: auto;
+  /* Centra horizontalmente */
   /* Centra verticalmente en dispositivos grandes */
   display: flex;
   align-items: center;
@@ -62,61 +84,145 @@ h4{text-align: center;}
 }
 
 
-.bg{
+.bg {
   background-image: url('../img/login.jpg');
   background-size: cover;
 }
-  
-.margin-container {    
-  width: 80%; /* Ancho del margen */
-  height: 80%; /* Alto del margen */
-  margin: auto; /* Centra horizontalmente */
-  background-color: rgba(253, 253, 253, 0.1); /* Color del margen (aquí puedes cambiarlo según tus necesidades) */
+
+.margin-container {
+  width: 80%;
+  /* Ancho del margen */
+  height: 80%;
+  /* Alto del margen */
+  margin: auto;
+  /* Centra horizontalmente */
+  background-color: rgba(253, 253, 253, 0.1);
+  /* Color del margen (aquí puedes cambiarlo según tus necesidades) */
 }
 
 
 .container3 {
-  width: 80%; /* Ancho del cuadrado */
-  height: 80%; /* Alto del cuadrado */
-  margin: auto; /* Centra horizontalmente */
-  background-color: #f2f2f2; /* Color del fondo */
+  width: 80%;
+  /* Ancho del cuadrado */
+  height: 80%;
+  /* Alto del cuadrado */
+  margin: auto;
+  /* Centra horizontalmente */
+  background-color: #f2f2f2;
+  /* Color del fondo */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 
-.containeracercade{
+.containeracercade {
   margin: 15%;
 }
+
 .carousel-inner {
-  height: 400px; 
+  height: 400px;
 }
 
 .carousel-item img {
-  object-fit: cover; 
+  object-fit: cover;
   height: 100%;
 }
 
 
 .container5 {
-  height: 100vh; /* Cambiamos esto a una altura relativa al viewport height */
+  height: 100vh;
+  /* Cambiamos esto a una altura relativa al viewport height */
   padding-right: 150px;
   display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
+  justify-content: center;
+  /* Centra horizontalmente */
+  align-items: center;
+  /* Centra verticalmente */
 }
 
 .rectangulo5 {
   background-image: url('../img/fondopolvo.jpg');
-  width: 50%; /* Ancho del rectángulo */
-  height: 400px; /* Altura del rectángulo */
-  background-color: #a8b5fd; /* Color del rectángulo (blanco en este caso) */
-  border: 2px solid #000000; /* Borde del rectángulo (negro en este caso) */
-  margin: auto; /* Centra horizontalmente */}
+  width: 50%;
+  /* Ancho del rectángulo */
+  height: 400px;
+  /* Altura del rectángulo */
+  background-color: #a8b5fd;
+  /* Color del rectángulo (blanco en este caso) */
+  border: 2px solid #000000;
+  /* Borde del rectángulo (negro en este caso) */
+  margin: auto;
+  /* Centra horizontalmente */
+}
 
-  .recomendadosgama {
+.recomendadosgama {
   display: flex;
   justify-content: center;
-  gap: 20px; /* Espacio entre las tarjetas */
+  gap: 20px;
+  /* Espacio entre las tarjetas */
+}
+
+
+.nav-item:hover {
+  transform: scale(1.1);
+  transform: translate(0px, -1px);
+
+
+}
+
+.nav-hitem a::before {
+  content: ’’;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #b47dcd, #e878a2, #eb85ab);
+  z-index: 1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+
+
+.box:hover {
+  transition: transform 0.8s ease;
+  transition: ease 0.2;
+  transform: scale(1.1);
+  transform: translate(0px, -10px);
+  opacity: 1;
+}
+
+.nav-link a{
+  position: relative;
+}
+
+.nav-link a::before{
+  content: ’’;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #b47dcd, #e878a2, #eb85ab);
+  z-index: 1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+
+-nav-link a:hover::before{
+  transform: scaleX(1);
+
+}
+
+.nav-link[data-animation="to-left"] .nav-link a::before {
+  transform-origin: right;
+}
+.nav-link[data-animation="center"] .nav-link a::before {
+  transform-origin: center;
+}
+
+.card{
+  height: 500px;
 }
