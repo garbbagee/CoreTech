@@ -10,12 +10,27 @@
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../css/estilo.css">
   <style>
+    /* Estilo para las cards con tamaño personalizado */
+    .card.custom-size {
+      width: 400px;
+      height: 500px;
+    }
 
+    /* Ajuste para la imagen dentro de la card */
+    .card.custom-size img {
+      height: 60%;
+      object-fit: cover;
+    }
+
+    /* Ajuste para el cuerpo de la card */
+    .card.custom-size .card-body {
+      height: 40%;
+      overflow: hidden;
+    }
   </style>
 </head>
 
 <body>
-
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
       <img src="../img/coretechlogo.jpg" alt="" width="40" height="34" class="d-inline-block align-text-top">
@@ -27,33 +42,25 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../html/index.html"><i class='bx bxs-home'></i>
-              Inicio</a>
+            <a class="nav-link active" aria-current="page" href="../html/index.html"><i class='bx bxs-home'></i> Inicio</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" href="../html/acercade.html"><i class='bx bxs-contact'></i> Quiénes somos</a>
           </li>
           <li class="nav-itemCarrito">
-            <a class="nav-link active" aria-current="page" href="../html/carrocompras.html"><i
-                class='bx bx-cart-download'></i> Carro de compras</a>
+            <a class="nav-link active" aria-current="page" href="../html/carrocompras.html"><i class='bx bx-cart-download'></i> Carro de compras</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../html/cuenta.html"><i class='bx bx-user'></i>
-              Cuenta</a>
-          </li>
+            <a class="nav-link active" aria-current="page" href="../html/cuenta.html"><i class='bx bx-user'></i> Cuenta</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Categoria
-            </a>
+              data-bs-toggle="dropdown" aria-expanded="false"> Categoria </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="../html/GamaAlta.html">Gama Alta</a></li>
               <li><a class="dropdown-item" href="../html/GamaMedia.html">Gama Media</a></li>
               <li><a class="dropdown-item" href="../html/GamaBaja.html">Gama Baja</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
+              <li><hr class="dropdown-divider"></li>
             </ul>
         </ul>
         <form class="d-flex">
@@ -87,7 +94,8 @@
               camino.
               <br><br>
               Únete a la comunidad CoreTech hoy mismo y descubre cómo podemos llevarte al siguiente nivel en tecnología
-              y comodidad en tu vida diaria. ¡Bienvenido a CoreTech!</p>
+              y comodidad en tu vida diaria. ¡Bienvenido a CoreTech!
+            </p>
           </div>
         </div>
       </div>
@@ -105,13 +113,11 @@
               <img src="../img/informatico3.jpg" class="d-block w-100" alt="...">
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-            data-bs-slide="prev">
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-            data-bs-slide="next">
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
@@ -121,12 +127,80 @@
     </div>
   </div>
 
+  <!-- Nueva sección con múltiples filas de cards -->
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card custom-size">
+          <img src="" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title">Producto 1</h5>
+            <p class="card-text">Descripción breve del producto 1.</p>
+            <a href="#" class="btn btn-primary">Comprar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card custom-size">
+          <img src="" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title">Producto 2</h5>
+            <p class="card-text">Descripción breve del producto 2.</p>
+            <a href="#" class="btn btn-primary">Comprar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card custom-size">
+          <img src="" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title">Producto 3</h5>
+            <p class="card-text">Descripción breve del producto 3.</p>
+            <a href="#" class="btn btn-primary">Comprar</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-
+    <!-- Segunda fila de cards -->
+    <div class="row">
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card custom-size">
+          <img src="" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title">Producto 4</h5>
+            <p class="card-text">Descripción breve del producto 4.</p>
+            <a href="#" class="btn btn-primary">Comprar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card custom-size">
+          <img src="" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title">Producto 5</h5>
+            <p class="card-text">Descripción breve del producto 5.</p>
+            <a href="#" class="btn btn-primary">Comprar</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card custom-size">
+          <img src="" class="card-img-top" alt="">
+          <div class="card-body">
+            <h5 class="card-title">Producto 6</h5>
+            <p class="card-text">Descripción breve del producto 6.</p>
+            <a href="#" class="btn btn-primary">Comprar</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
+  <script src="../js/java.js"></script>
 </body>
 
 </html>
