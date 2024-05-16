@@ -230,18 +230,17 @@ h4 {
 
 /* Estilo para las cards con tamaño personalizado */
 .card.custom-size {
-  width: 400px;
-  height: 500px;
+  max-width: 400px; /* Ajusta el ancho máximo de la tarjeta */
 }
 
 /* Ajuste para la imagen dentro de la card */
 .card.custom-size img {
-  height: 60%;
+  height: 60%; /* Ajusta la altura de la imagen */
   object-fit: cover;
 }
 
 /* Ajuste para el cuerpo de la card */
 .card.custom-size .card-body {
-  height: 40%;
+  max-height: 40%; /* Ajusta la altura máxima del cuerpo de la tarjeta */
   overflow: hidden;
 }

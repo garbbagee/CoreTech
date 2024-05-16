@@ -29,6 +29,15 @@ function fetchCharacters() {
 
 
 
+
+
+
+
+
+
+
+
+
 // Animación de carga de página
 function pageLoader() {
     const loader = document.getElementById('loader');
