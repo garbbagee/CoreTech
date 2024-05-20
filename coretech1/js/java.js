@@ -26,8 +26,12 @@ function fetchCharacters() {
         .catch(error => console.error('Error fetching characters:', error));
 }
 
-
-
+document.addEventListener('DOMContentLoaded', function() {
+    const title = document.getElementById('animated-title');
+    setTimeout(function() {
+        title.classList.add('show');
+    }, 500);
+});
 
 
 

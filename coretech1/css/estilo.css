@@ -244,3 +244,22 @@ h4 {
   max-height: 40%; /* Ajusta la altura máxima del cuerpo de la tarjeta */
   overflow: hidden;
 }
+
+.title-container {
+  text-align: center;
+  margin: 50px auto;
+}
+
+.title {
+  color: #f1f1f1;
+  font-size: 48px;
+  font-weight: bold;
+  transform: translateY(120px);
+  opacity: 0;
+  transition: transform 1s ease-out, opacity 1s ease-out;
+}
+
+.title.show {
+  transform: translateY(0);
+  opacity: 1;
+}
