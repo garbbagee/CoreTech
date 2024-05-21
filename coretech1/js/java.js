@@ -69,3 +69,340 @@ function initAnimations() {
 
 // Inicializar animaciones al cargar la página
 window.addEventListener('load', initAnimations);
+
+
+/* ANIMACION DE INICIO DE SESION Y REGISTRO*/
+const btnSignIn = document.getElementById("sign-in"),
+      btnSignUp = document.getElementById("sign-up");
+      formRegister = document.querySelector(".register"),
+      formLogin = document.querySelector(".login");
+
+btnSignIn.addEventListener("click", e => {
+    formRegister.classList.add("hide");
+    formLogin.classList.remove("hide");
+    document.getElementById("correo2").value = "";
+    document.getElementById("contra2").value = "";
+})
+
+btnSignUp.addEventListener("click", e => {
+    formLogin.classList.add("hide");
+    formRegister.classList.remove("hide");
+    document.getElementById("nombre").value = "";
+    document.getElementById("user").value = "";
+    document.getElementById("fono").value = "";
+    document.getElementById("correo").value = "";
+    document.getElementById("contra").value = ""
+})/* FIN ANIMACION*/
+
+
+/* VALIDACIONES REGISTRARSE*/
+
+/* INICIO VALIDACION NOMBRE*/
+document.getElementById("nombre").addEventListener("blur", function() {
+    validarNombre(this.value);
+});
+function validarNombre(){
+    cantidad = document.getElementById("nombre").value.length;
+    valor = document.getElementById("nombre").value;
+    var nombre = document.getElementById("nombre").value;
+    var regex = /^[a-zA-Z\s]{0,150}$/;
+    if(regex.test(nombre)){
+        cantidad = document.getElementById("nombre").value.length;
+        valor = document.getElementById("nombre").value;
+
+        if(cantidad == 0){
+            Swal.fire({
+                icon: "error",
+                title: "Nombre sin datos",
+                text: "Ingrese su nombre completo"
+            });
+        }
+    }else {
+        Swal.fire({
+            icon: "error",
+            title: "Nombre no valido",
+            text: "Solo se permiten letras"
+        });
+    }
+}/* FIN VALIDACION NOMBRE */
+
+/* VALIDAR USUARIO */
+document.getElementById("user").addEventListener("blur", function() {
+    validarUsuario(this.value);
+});
+function validarUsuario(){
+    var user = document.getElementById("user").value;
+    var regex = /^[a-zA-Z0-9_-\s]{0,50}$/;
+    if (regex.test(user)){
+        cantidad = document.getElementById("user").value.length;
+        valor = document.getElementById("user").value;
+
+        if(cantidad == 0){
+            Swal.fire({
+                icon: "error",
+                title: "Usuario sin datos",
+                text: "Ingrese un usuario"
+            });
+        }
+    } else {
+        Swal.fire({
+            icon: "error",
+            title: "Usuario no valido",
+            text: "Solo se permiten letras, numeros, puntos, guion y guion bajos."
+        });
+    }
+}/* FIN VALIDACION USUARIO */
+
+/* VALIDACION DE TELEFONO */
+document.getElementById("fono").addEventListener("blur", function() {
+    validarNumeros(this.value);
+});
+function validarNumeros(){
+    var fono = document.getElementById("fono").value;
+    var regex = /^[0-9]{0,}$/;
+
+    if(regex.test(fono)){
+        cantidad = document.getElementById("fono").value.length;
+        valor = document.getElementById("fono").value;
+        
+        if(cantidad < 9 || cantidad > 9){
+            Swal.fire({
+                icon: "error",
+                title: "Teléfono invalido",
+                text: "El número debe ser de 9 digitos (añadir el 9)"
+            });
+        }
+
+        if(cantidad == 0){
+            Swal.fire({
+                icon: "error",
+                title: "Teléfono sin datos...",
+                text: "Por favor introduzca un numero de telefono"
+            });
+        }
+    }else{
+        Swal.fire({
+            icon: "error",
+            title: "Teléfono invalido",
+            text: "solo se permiten números"
+        });
+    }
+}/* FIN VALIDACION TELEFONO */
+
+/* VALIDACION CORREO*/
+document.getElementById("correo").addEventListener("blur", function() {
+    validarCorreo(this.value);
+});
+function validarCorreo(){
+    cantidad = document.getElementById("correo").value.length;
+    valor = document.getElementById("correo").value;
+
+    if(cantidad == 0){
+        Swal.fire({
+            icon: "error",
+            title: "Correo Eléctronico sin datos...",
+            text: "Por favor introduzca un Correo Eléctronico"
+        });
+    }else{
+        var correo = document.getElementById("correo").value;
+        var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if(regex.test(correo)){
+            if(correo == "mart.rozas@duocuc.cl"){
+                Swal.fire({
+                    icon: "error",
+                    title: "Correo Eléctronico ya existe",
+                    text: "Ingrese otro correo"
+                });
+            }
+        }else{
+            Swal.fire({
+                icon: "error",
+                title: "Correo Eléctronico no valido",
+                text: "Ingrese un correo valido ej: damianpizarro@gmail.com"
+            });
+        }
+    }
+}/* FIN VALIDACION CORREO */
+
+/* VALIDACION CONTRASEÑA*/
+document.getElementById("contra").addEventListener("blur", function() {
+    validarContraseña(this.value);
+});
+function validarContraseña(){
+    cantidad = document.getElementById("contra").value.length;
+    valor = document.getElementById("contra").value;
+
+    if(cantidad == 0){
+        Swal.fire({
+            icon: "error",
+            title: "Contraseña sin datos...",
+            text: "Ingrese una contraseña válida"
+        });
+    }else{
+        var contra = document.getElementById("contra").value;
+        var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s])[a-zA-Z\d\S]{8,}$/;
+
+        if(regex.test(contra)){
+        }else{
+            Swal.fire({
+                icon: "error",
+                title: "Contraseña no valida",
+                text: "Requiere al menos una letra minúscula, una letra mayúscula, un número y un signo especial"
+            });
+        }
+    }
+}/* FIN VALIDACION CONTRASEÑA */ 
+
+/* INTENTO DE MOSTRAR*/
+var eye = document.getElementById("eye");
+var contra = document.getElementById("contra");
+eye.addEventListener("click", function(){
+    if(contra.type == "password"){
+        contra.type = "text"
+        eye.className = 'idolo bx bx-show'
+    }else{
+        contra.type = "password"
+        eye.className = 'idolo bx bx-low-vision'
+    }
+})
+
+/* VALIDACION REGISTRO*/
+document.getElementById("miFormulario").addEventListener("submit", function(event) {
+    event.preventDefault(); // Evita que el formulario se envíe automáticamente
+    
+    var nombre = document.getElementById("nombre").value;
+    var usuario = document.getElementById("user").value;
+    var fono = document.getElementById("fono").value;
+    var correo = document.getElementById("correo").value;
+    var contra = document.getElementById("contra").value;
+
+    if (nombre.trim() == '' || usuario.trim() == '' || fono.trim() == '' || correo.trim() == '' || contra.trim() == '') {
+        // Si el nombre, Usuario, Fono, Correo o contraseña están vacíos, muestra un mensaje de error
+        Swal.fire({
+            icon: "error",
+            title: "Formulario no válido...",
+            text: "Ingrese todos los datos"
+        });
+    }else{ // Si el formulario está completo, se muestra mensaje exitoso
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Formulario completado con exito!",
+            showConfirmButton: false,
+            timer: 1500
+        })
+
+        document.getElementById("nombre").value = "";
+        document.getElementById("user").value = "";
+        document.getElementById("fono").value = "";
+        document.getElementById("correo").value = "";
+        document.getElementById("contra").value = "";
+    };
+}
+);/* FIN VALIDACION REGISTRO */
+
+/* TERMINO DE VALIDACIONES REGISTRARSE */
+
+
+/* INICIO VALIDACIONES INICIO SESION */
+
+/* VALIDACION CORREO INCIO SESION*/
+document.getElementById("correo2").addEventListener("blur", function() {
+    validarCorreo2(this.value);
+});
+function validarCorreo2(){
+    cantidad = document.getElementById("correo2").value.length;
+    valor = document.getElementById("correo2").value;
+
+    if(cantidad == 0){
+        Swal.fire({
+            icon: "error",
+            title: "Correo Eléctronico sin datos...",
+            text: "Por favor introduzca un Correo Eléctronico"
+        });
+    }else{
+        var correo2 = document.getElementById("correo2").value;
+        var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if(regex.test(correo2)){
+        }else{
+            Swal.fire({
+                icon: "error",
+                title: "Correo Eléctronico no valido",
+                text: "Ingrese un correo valido ej: damianpizarro@gmail.com"
+            });
+        }
+    }
+}/* FIN VALIDACION CORREO */ 
+
+/* VALIDACION DE CONTRASEÑA */
+document.getElementById("contra2").addEventListener("blur", function() {
+    validarContraseña2(this.value);
+});
+function validarContraseña2(){
+    cantidad = document.getElementById("contra2").value.length;
+    valor = document.getElementById("contra2").value;
+
+    if(cantidad == 0){
+        Swal.fire({
+            icon: "error",
+            title: "Contraseña sin datos...",
+            text: "Ingrese una contraseña válida"
+        });
+    }else{
+        var contra2 = document.getElementById("contra2").value;
+        var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s])[a-zA-Z\d\S]{8,}$/;
+
+        if(regex.test(contra2)){
+        }else{
+            Swal.fire({
+                icon: "error",
+                title: "Contraseña no valida",
+                text: "Requiere al menos una letra minúscula, una letra mayúscula, un número y un signo especial"
+            });
+        }
+    }
+}
+
+
+/* INICIO VALIDACION CORREO VALIDO*/
+document.getElementById("total").addEventListener("submit", function(event) {
+    event.preventDefault(); // Evita que el formulario se envíe automáticamente
+    
+    cantidadC = document.getElementById("correo2").value.length;
+    cantidadPass = document.getElementById("contra2").value.length;
+    
+
+
+    if(cantidadC == 0 || cantidadPass == 0){
+        Swal.fire({
+            icon: "error",
+            title: "Inicio Sesión sin datos...",
+            text: "Ingrese Correo Eléctronico o Usuario y Contraseña"
+        });
+    }else{
+        var correo2 = document.getElementById("correo2").value;
+        var contra2 = document.getElementById("contra2").value;
+
+        if(correo2 == "mart.rozas@duocuc.cl" && contra2 == "M4rtin_123"){
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Inicio Sesión con exito!",
+                showConfirmButton: false,
+                timer: 1500
+            })
+
+            document.getElementById("correo2").value = "";
+            document.getElementById("contra2").value = "";
+        }else{
+            Swal.fire({
+                icon: "error",
+                title: "Correo Eléctronico o Contraseña incorrecto",
+                text: "Intente Otra Vez"
+            });
+        }
+    }
+}
+);/* FIN VALIDACION INICIO DE SESION VALIDO */
