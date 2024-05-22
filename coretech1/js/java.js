@@ -102,8 +102,6 @@ document.getElementById("nombre").addEventListener("blur", function() {
     validarNombre(this.value);
 });
 function validarNombre(){
-    cantidad = document.getElementById("nombre").value.length;
-    valor = document.getElementById("nombre").value;
     var nombre = document.getElementById("nombre").value;
     var regex = /^[a-zA-Z\s]{0,150}$/;
     if(regex.test(nombre)){
@@ -123,7 +121,8 @@ function validarNombre(){
             title: "Nombre no valido",
             text: "Solo se permiten letras"
         });
-    }
+        return false;
+    }return true;
 }/* FIN VALIDACION NOMBRE */
 
 /* VALIDAR USUARIO */
@@ -150,7 +149,8 @@ function validarUsuario(){
             title: "Usuario no valido",
             text: "Solo se permiten letras, numeros, puntos, guion y guion bajos."
         });
-    }
+        return false;
+    }return true;
 }/* FIN VALIDACION USUARIO */
 
 /* VALIDACION DE TELEFONO */
@@ -171,6 +171,7 @@ function validarNumeros(){
                 title: "Teléfono invalido",
                 text: "El número debe ser de 9 digitos (añadir el 9)"
             });
+            return false;
         }
 
         if(cantidad == 0){
@@ -179,6 +180,7 @@ function validarNumeros(){
                 title: "Teléfono sin datos...",
                 text: "Por favor introduzca un numero de telefono"
             });
+            return false;
         }
     }else{
         Swal.fire({
@@ -186,7 +188,8 @@ function validarNumeros(){
             title: "Teléfono invalido",
             text: "solo se permiten números"
         });
-    }
+        return false;
+    }return true;
 }/* FIN VALIDACION TELEFONO */
 
 /* VALIDACION CORREO*/
@@ -203,6 +206,7 @@ function validarCorreo(){
             title: "Correo Eléctronico sin datos...",
             text: "Por favor introduzca un Correo Eléctronico"
         });
+        return false;
     }else{
         var correo = document.getElementById("correo").value;
         var regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -214,6 +218,7 @@ function validarCorreo(){
                     title: "Correo Eléctronico ya existe",
                     text: "Ingrese otro correo"
                 });
+                return false;
             }
         }else{
             Swal.fire({
@@ -221,8 +226,9 @@ function validarCorreo(){
                 title: "Correo Eléctronico no valido",
                 text: "Ingrese un correo valido ej: damianpizarro@gmail.com"
             });
+            return false;
         }
-    }
+    }return true;
 }/* FIN VALIDACION CORREO */
 
 /* VALIDACION CONTRASEÑA*/
@@ -236,6 +242,7 @@ function validarContraseña(){
             title: "Contraseña sin datos...",
             text: "Ingrese una contraseña válida"
         });
+        return false;
     }else{
         var contra = document.getElementById("contra").value;
         var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d\s])[a-zA-Z\d\S]{8,}$/;
@@ -245,10 +252,11 @@ function validarContraseña(){
             Swal.fire({
                 icon: "error",
                 title: "Contraseña no valida",
-                text: "Requiere al menos una letra minúscula, una letra mayúscula, un número y un signo especial"
+                text: "Requiere minimo 8 digitos, al menos una letra minúscula, una letra mayúscula, un número y un signo especial"
             });
+            return false;
         }
-    }
+    }return true;
 }/* FIN VALIDACION CONTRASEÑA */ 
 
 /* MOSTRAR CONTRASEÑA */
