@@ -226,9 +226,6 @@ function validarCorreo(){
 }/* FIN VALIDACION CORREO */
 
 /* VALIDACION CONTRASEÑA*/
-document.getElementById("contra").addEventListener("blur", function() {
-    validarContraseña(this.value);
-});
 function validarContraseña(){
     cantidad = document.getElementById("contra").value.length;
     valor = document.getElementById("contra").value;
@@ -254,7 +251,7 @@ function validarContraseña(){
     }
 }/* FIN VALIDACION CONTRASEÑA */ 
 
-/* INTENTO DE MOSTRAR*/
+/* MOSTRAR CONTRASEÑA */
 var eye = document.getElementById("eye");
 var contra = document.getElementById("contra");
 eye.addEventListener("click", function(){
@@ -276,6 +273,7 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
     var fono = document.getElementById("fono").value;
     var correo = document.getElementById("correo").value;
     var contra = document.getElementById("contra").value;
+    var validacionesExitosas = 0;
 
     if (nombre.trim() == '' || usuario.trim() == '' || fono.trim() == '' || correo.trim() == '' || contra.trim() == '') {
         // Si el nombre, Usuario, Fono, Correo o contraseña están vacíos, muestra un mensaje de error
@@ -284,20 +282,28 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
             title: "Formulario no válido...",
             text: "Ingrese todos los datos"
         });
-    }else{ // Si el formulario está completo, se muestra mensaje exitoso
-        Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Formulario completado con exito!",
-            showConfirmButton: false,
-            timer: 1500
-        })
 
-        document.getElementById("nombre").value = "";
-        document.getElementById("user").value = "";
-        document.getElementById("fono").value = "";
-        document.getElementById("correo").value = "";
-        document.getElementById("contra").value = "";
+    }else{ // Si el formulario está completo, validara que si esten correctos
+        if (validarNombre()) validacionesExitosas++;
+        if (validarUsuario()) validacionesExitosas++;
+        if (validarNumeros()) validacionesExitosas++;
+        if (validarCorreo()) validacionesExitosas++;
+        if (validarContraseña()) validacionesExitosas++;
+        // Verificar si todas las validaciones fueron exitosas
+        if (validacionesExitosas === 5) {
+            // Si todas las validaciones son exitosas, muestra un mensaje de éxito
+            Swal.fire({
+                icon: "success",
+                title: "Formulario válido",
+                text: "¡El formulario ha sido validado correctamente!"
+            });
+
+            document.getElementById("nombre").value = "";
+            document.getElementById("user").value = "";
+            document.getElementById("fono").value = "";
+            document.getElementById("correo").value = "";
+            document.getElementById("contra").value = "";
+        }   
     };
 }
 );/* FIN VALIDACION REGISTRO */
