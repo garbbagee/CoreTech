@@ -28,6 +28,14 @@
       height: auto;
       overflow: hidden;
     }
+
+    /* Estilo para el cuadrado blanco */
+    .white-square {
+      width: 100%;
+      height: 300px; /* Ajusta la altura según lo necesites */
+      background-color: #fff;
+      border-radius: 10px;
+    }
   </style>
 </head>
 
@@ -75,31 +83,45 @@
   <div class="container mt-4">
     <div class="row align-items-center">
       <div class="col-lg-6 col-md-12 mb-4">
-        <div class="card">
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <div class="row align-items-center justify-content-center"> <!-- Modificación en esta línea -->
+      <div class="col-lg-6 col-md-12 mb-4">
+        <div class="card mx-auto"> <!-- Modificación en esta línea -->
           <div class="card-body">
-            <p class="card-text">
+            <p class="card-text card-text-animated">
+             
+  
               En CoreTech, nos dedicamos apasionadamente a ofrecerte lo último en tecnología y soluciones de hardware
               para PC. Somos una empresa comprometida con la excelencia en la venta de productos electrónicos,
               especializados en una amplia gama de artículos para el hogar y dispositivos esenciales para la vida
               moderna.
-              <br><br>
+              
               Nuestro objetivo es proporcionarte productos de la más alta calidad que se adapten a tus necesidades y
               presupuesto. Desde componentes para PC de última generación hasta dispositivos electrónicos esenciales
               para el hogar, como electrodomésticos y accesorios, nos enorgullece ofrecer una amplia selección para
               satisfacer todos tus requerimientos tecnológicos.
-              <br><br>
+             
               Además de ofrecer productos de primera calidad, nuestro equipo de expertos está aquí para brindarte
               asesoramiento personalizado y apoyo técnico en la creación y armado de tu PC ideal. Queremos asegurarnos
               de que obtengas la mejor experiencia tecnológica posible, y estamos aquí para guiarte en cada paso del
               camino.
-              <br><br>
+              
               Únete a la comunidad CoreTech hoy mismo y descubre cómo podemos llevarte al siguiente nivel en tecnología
-              y comodidad en tu vida diaria. ¡Bienvenido a CoreTech!
+              y comodidad en tu vida diaria.
             </p>
           </div>
         </div>
       </div>
-
+    </div>
+  </div>
+    
+  <br><br>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
       <div class="col-lg-6 col-md-12">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
@@ -113,11 +135,13 @@
               <img src="../img/informatico3.jpg" class="d-block w-100" alt="...">
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
           </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
           </button>
@@ -125,6 +149,7 @@
       </div>
     </div>
   </div>
+  
 
   <!-- Nueva sección con múltiples filas de cards -->
   <div class="container mt-5">
@@ -194,6 +219,36 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
   <script src="../js/java.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Elemento con el texto que queremos animar
+      const texto = document.querySelector('.card-text-animated');
+      // Texto original
+      const textoOriginal = texto.innerText;
+      // Tiempo de espera entre cada letra (en milisegundos)
+      const delay = 30;
+
+      // Limpiamos el contenido del elemento
+      texto.innerText = '';
+
+      // Función para agregar el texto con animación de escritura progresiva
+      function escribirTexto(texto, textoCompleto, index, delay) {
+        if (index < textoCompleto.length) {
+          // Agregamos la siguiente letra al texto
+          texto.innerHTML += textoCompleto.charAt(index);
+          // Incrementamos el índice para la siguiente letra
+          index++;
+          // Llamamos a la función de nuevo después del tiempo de espera
+          setTimeout(function() {
+            escribirTexto(texto, textoCompleto, index, delay);
+          }, delay);
+        }
+      }
+
+      // Llamamos a la función para empezar la animación cuando el contenido se haya cargado
+      escribirTexto(texto, textoOriginal, 0, delay);
+    });
+  </script>
 </body>
 
 </html>
