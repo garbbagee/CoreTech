@@ -56,25 +56,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-//H1 Slider
-
-const marcasHeading = document.querySelector('.marcas');
-
-marcasHeading.addEventListener('mouseover', () => {
-  marcasHeading.style.transform = 'scale(1.1)'; // Aumenta el tamaño en un 20%
-});
-
-marcasHeading.addEventListener('mouseout', () => {
-  marcasHeading.style.transform = 'scale(1)'; // Restaura el tamaño original
-});
-
-
-// animacion
-
-
-
-
-
 
 // Inicializar todas las animaciones
 function initAnimations() {

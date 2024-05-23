@@ -242,6 +242,12 @@ h4 {
   max-width: 400px; /* Ajusta el ancho máximo de la tarjeta */
 }
 
+.card-max-height {
+  max-height: 390px; /* Puedes ajustar este valor según tus preferencias */
+  
+}
+
+
 /* Ajuste para la imagen dentro de la card */
 .card.custom-size img {
   height: 60%; /* Ajusta la altura de la imagen */
