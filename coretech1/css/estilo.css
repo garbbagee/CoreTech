@@ -553,7 +553,7 @@ html {
     border-top-right-radius: 0;
 }
 }
-
+/* Animación de entrada */
 @keyframes fadeIn {
   from {
     opacity: 0;

@@ -338,12 +338,6 @@ document.getElementById("miFormulario").addEventListener("submit", function(even
 /* TERMINO DE VALIDACIONES REGISTRARSE */
 
 
-/*Fade in */
-
-document.addEventListener('DOMContentLoaded', function() {
-    document.body.classList.add('fade-in');
-  });
-  
 /* INICIO VALIDACIONES INICIO SESION */
 
 /* VALIDACION CORREO INCIO SESION*/
@@ -445,3 +439,6 @@ document.getElementById("total").addEventListener("submit", function(event) {
     }
 }
 );/* FIN VALIDACION INICIO DE SESION VALIDO */
+document.addEventListener('DOMContentLoaded', function() {
+  document.body.classList.add('fade-in');
+});
