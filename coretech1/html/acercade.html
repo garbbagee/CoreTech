@@ -12,19 +12,20 @@
   <style>
     /* Estilo para las cards con tamaño personalizado */
     .card.custom-size {
-      width: 400px;
-      height: 500px;
+      width: 100%;
+      height: auto;
     }
 
     /* Ajuste para la imagen dentro de la card */
     .card.custom-size img {
-      height: 60%;
+      height: auto;
+      max-height: 60%;
       object-fit: cover;
     }
 
     /* Ajuste para el cuerpo de la card */
     .card.custom-size .card-body {
-      height: 40%;
+      height: auto;
       overflow: hidden;
     }
   </style>
@@ -61,6 +62,7 @@
               <li><a class="dropdown-item" href="../html/GamaMedia.html">Gama Media</a></li>
               <li><a class="dropdown-item" href="../html/GamaBaja.html">Gama Baja</a></li>
             </ul>
+          </li>
         </ul>
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search">
@@ -70,11 +72,10 @@
     </div>
   </nav>
 
-  <div class="contenedor">
+  <div class="container mt-4">
     <div class="row align-items-center">
-      <div class="col-md-1 col-sm-2"></div>
-      <div class="col-md-5 col-sm-10">
-        <div class="card" style="width: 40rem; top: 30px;">
+      <div class="col-lg-6 col-md-12 mb-4">
+        <div class="card">
           <div class="card-body">
             <p class="card-text">
               En CoreTech, nos dedicamos apasionadamente a ofrecerte lo último en tecnología y soluciones de hardware
@@ -99,8 +100,8 @@
         </div>
       </div>
 
-      <div class="col-md-5 col-sm-10">
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="margin-top: auto;">
+      <div class="col-lg-6 col-md-12">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
               <img src="../img/informatico1.jpeg" class="d-block w-100" alt="...">
@@ -122,14 +123,13 @@
           </button>
         </div>
       </div>
-      <div class="col-md-1 col-sm-2"></div>
     </div>
   </div>
 
   <!-- Nueva sección con múltiples filas de cards -->
   <div class="container mt-5">
     <div class="row">
-      <div class="col-md-4 col-sm-6 mb-4">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card custom-size">
           <img src="" class="card-img-top" alt="">
           <div class="card-body">
@@ -138,7 +138,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 col-sm-6 mb-4">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card custom-size">
           <img src="" class="card-img-top" alt="">
           <div class="card-body">
@@ -147,7 +147,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 col-sm-6 mb-4">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card custom-size">
           <img src="" class="card-img-top" alt="">
           <div class="card-body">
@@ -160,7 +160,7 @@
 
     <!-- Segunda fila de cards -->
     <div class="row">
-      <div class="col-md-4 col-sm-6 mb-4">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card custom-size">
           <img src="" class="card-img-top" alt="">
           <div class="card-body">
@@ -169,7 +169,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 col-sm-6 mb-4">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card custom-size">
           <img src="" class="card-img-top" alt="">
           <div class="card-body">
@@ -178,7 +178,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-4 col-sm-6 mb-4">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
         <div class="card custom-size">
           <img src="" class="card-img-top" alt="">
           <div class="card-body">
