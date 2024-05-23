@@ -69,7 +69,12 @@ marcasHeading.addEventListener('mouseout', () => {
 });
 
 
-  
+// animacion
+
+
+
+
+
 
 // Inicializar todas las animaciones
 function initAnimations() {
