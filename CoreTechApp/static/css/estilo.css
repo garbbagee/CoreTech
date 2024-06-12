@@ -1,0 +1,574 @@
+body {
+  background: url('../img/fondo.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+  height: 100%;
+}
+
+.container {
+  width: 100%;
+}
+
+h1 {
+  text-align: center;
+}
+
+h3 {
+  text-align: left;
+}
+
+h4 {
+  text-align: center;
+}
+
+.container2 {
+  height: 100%;
+  padding-right: 150px;
+  display: flex;
+  align-items: center;
+}
+
+.cuad1 {
+  width: 25%;
+  height: 400px;
+}
+
+.cuad2 {
+  width: 25%;
+  height: 400px;
+}
+
+.cuad3 {
+  width: 25%;
+  height: 400px;
+}
+
+.cuad4 {
+  width: 25%;
+  height: 400px;
+}
+
+.productoizq {
+  flex: 1;
+}
+
+.descripder {
+  flex: 1;
+  text-align: right;
+  padding-right: 20px;
+  background-color: #6a6faa;
+  background: url('../img/fondo2.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 100;
+  height: 100%;
+}
+
+.rectangulo {
+  background-image: url('../img/fondopolvo.jpg');
+  width: 100%;
+  /* Ancho del rectángulo */
+  height: 400px;
+  /* Altura del rectángulo */
+  background-color: #a8b5fd;
+  /* Color del rectángulo (blanco en este caso) */
+  border: 2px solid #000000;
+  /* Borde del rectángulo (negro en este caso) */
+  margin: auto;
+  /* Centra horizontalmente */
+  /* Centra verticalmente en dispositivos grandes */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.bg {
+  background-image: url('../img/login.jpg');
+  background-size: cover;
+}
+
+.margin-container {
+  width: 80%;
+  /* Ancho del margen */
+  height: 80%;
+  /* Alto del margen */
+  margin: auto;
+  /* Centra horizontalmente */
+  background-color: rgba(253, 253, 253, 0.1);
+  /* Color del margen (aquí puedes cambiarlo según tus necesidades) */
+}
+
+
+.container3 {
+  width: 80%;
+  /* Ancho del cuadrado */
+  height: 80%;
+  /* Alto del cuadrado */
+  margin: auto;
+  /* Centra horizontalmente */
+  background-color: #f2f2f2;
+  /* Color del fondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+
+.containeracercade {
+  margin: 15%;
+}
+
+
+
+.carousel-inner {
+  height: 390px;
+  width: 90%;
+  margin: auto;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  height: 100%;
+}
+
+
+
+
+.container5 {
+  height: 100vh;
+  /* Cambiamos esto a una altura relativa al viewport height */
+  padding-right: 150px;
+  display: flex;
+  justify-content: center;
+  /* Centra horizontalmente */
+  align-items: center;
+  /* Centra verticalmente */
+}
+
+.rectangulo5 {
+  background-image: url('../img/fondopolvo.jpg');
+  width: 50%;
+  /* Ancho del rectángulo */
+  height: 400px;
+  /* Altura del rectángulo */
+  background-color: #a8b5fd;
+  /* Color del rectángulo (blanco en este caso) */
+  border: 2px solid #000000;
+  /* Borde del rectángulo (negro en este caso) */
+  margin: auto;
+  /* Centra horizontalmente */
+}
+
+.recomendadosgama {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  /* Espacio entre las tarjetas */
+}
+
+
+.nav-item:hover {
+  transform: scale(1.1);
+  transform: translate(0px, -1px);
+
+
+}
+
+.nav-hitem a::before {
+  content: ’’;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #b47dcd, #e878a2, #eb85ab);
+  z-index: 1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+
+
+.box:hover {
+  transition: transform 0.8s ease;
+  transition: ease 0.2;
+  transform: scale(1.1);
+  transform: translate(0px, -10px);
+  opacity: 1;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #ffffff, #ffffff, #ffffff);
+  z-index: 1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s ease-in-out;
+}
+
+.nav-link:hover::before {
+  transform: scaleX(1);
+}
+
+.nav-link[data-animation="to-left"]::before {
+  transform-origin: right;
+}
+
+.nav-link[data-animation="center"]::before {
+  transform-origin: center;
+}
+
+/* ESTO CAUSA UN ERROR EN LOS CARDS SI TIENEN MUCHO TEXTO*/
+.card{
+  height: 550px;
+  overflow: hidden;
+  background-color: #ffffffbb;
+}
+
+/* Estilo para las cards con tamaño personalizado */
+.card.custom-size {
+  max-width: 400px; /* Ajusta el ancho máximo de la tarjeta */
+}
+
+.card-max-height {
+  max-height: 390px; /* Puedes ajustar este valor según tus preferencias */
+  
+}
+
+
+/* Ajuste para la imagen dentro de la card */
+.card.custom-size img {
+  height: 60%; /* Ajusta la altura de la imagen */
+  object-fit: cover;
+}
+
+/* Ajuste para el cuerpo de la card */
+.card.custom-size .card-body {
+  max-height: 40%; /* Ajusta la altura máxima del cuerpo de la tarjeta */
+  overflow: hidden;
+}
+
+
+/* Centrar texto */
+
+.centrarTextoW{
+  text-align: center;
+  color: white;
+}
+
+.centrarTextoB{
+  text-align: center;
+  color: black
+}
+
+/* h6 color */
+
+h6{
+  color: black;
+}
+
+/* Agrandar letra y que se pongan en blanco */
+.animated-heading {
+  color: white; /* Cambia el color del texto a blanco */
+}
+
+
+.title-container {
+  text-align: center;
+  margin: 50px auto;
+}
+
+.title {
+  color: #f1f1f1;
+  font-size: 48px;
+  font-weight: bold;
+  transform: translateY(120px);
+  opacity: 0;
+  transition: transform 1s ease-out, opacity 1s ease-out;
+}
+
+.title.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+
+/* APARTADO INICIO SESION */
+.segunda{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/*FONDO DE LA PAGINA*/
+.primera {
+display: flex;
+align-items: center;
+justify-content: center;
+height: 100vh;
+background-size: cover;
+}
+
+/* Cuadro general altura */
+.container-form {
+display: flex;
+border-radius: 20px;
+box-shadow: 0 5px 7px rgb(0, 0, 0, .1);
+height: 700px;
+width: 900px;
+transition: all 1s ease;
+margin: 10px;
+}
+
+/*FONDO CUADRADO IZQUIERDO*/
+.information {
+width: 40%;
+display: flex;
+align-items: center;
+text-align: center;
+background-color: #0065d8a4;
+border-top-left-radius: 20px;
+border-bottom-left-radius: 20px;
+}
+
+.info-childs {
+width: 100%;
+padding: 0 30px;
+}
+
+/* CAMBIA LA LETRA DEL TITULO "BIENVENIDO/ BIENVENIDO OTRA VEZ" */
+.info-childs h2 {
+font-size: 2.5rem;
+color: #141414;
+font-weight: bold;
+}
+/* TEXTO ABAJO DE BIENVENIDO/BIENVENIDO OTRA VEZ*/
+.info-childs p {
+margin: 15px 0;
+color: #1f1f1f;
+font-weight: bold;
+}
+
+.info-childs input {
+background-color: transparent;
+outline: none;
+border: solid 2px #9191bd;
+border-radius: 30px;
+padding: 10px 20px;
+color: #9191bd;
+cursor: pointer;
+transition: background-color .3 ease;
+}
+
+.info-childs input:hover {
+background-color: #9191bd;
+border: none;
+color: #fff;
+box-shadow: 0 2px 5px rgb(0, 0, 0, .1);
+}
+
+/* CAMBIO FONDO CUADRADO DERECHO */
+.form-information {
+display: flex;
+align-items: center;
+justify-content: center;
+width: 60%;
+text-align: center;
+background-color: #0084ffc9;
+border-top-right-radius: 20px;
+border-bottom-right-radius: 20px;
+}
+
+.form-information-childs {
+padding: 0 30px;
+}
+
+/* TITULO INICIAR SESION*/
+.form-information-childs h2 {
+color: #111111;
+font-size: 2rem;
+font-weight: bold;
+}
+/* PARRAFO INICIAR SESION*/
+.form-information-childs p {
+color: #222222;
+font-weight: bold;
+}
+
+/* INICIO ICONOS */
+.icons {
+margin: 15px 0;
+}
+
+.icons i {
+border-radius: 50%;
+padding: 15px;
+cursor: pointer;
+margin: 0 10px;
+color: #555569;
+border: solid thin #5f5f74;
+transition: background-color 0.3s ease;
+box-shadow: 0 5px 7px rgb(0, 0, 0, .1);
+}
+
+.icons i:hover {
+background-color: #c7c7f3;
+color: #fff;
+}
+
+/* OJO */
+.idolo{
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.form {
+margin: 30px 0 0 0;
+}
+
+.form label {
+display: flex;
+align-items: center;
+margin-bottom: 15px;
+border-radius: 20px;
+padding: 0 10px;
+background-color: #fff;
+box-shadow: 0 5px 7px rgb(0, 0, 0, .1);
+}
+.form label input {
+width: 100%;
+padding: 10px;
+background-color: #fff;
+border: none;
+outline: none;
+border-radius: 20px;
+color: #333;
+}
+
+.form label i {
+color: #a7a7a7;
+}
+
+.form input[type="submit"] {
+background-color: #9191bd;
+color: #fff;
+border-radius: 20px;
+border: none;
+padding: 10px 15px;
+cursor: pointer;
+margin-top: 10px;
+box-shadow: 0 5px 7px rgb(0, 0, 0, .1);
+}
+
+.form input[type="submit"]:hover {
+background-color: #7a7a9a;
+}
+
+.hide {
+position: absolute;
+transform: translateY(-300%);
+}
+
+
+/* Slider */
+
+.slider{
+  width: 100%;
+  height: auto;
+  margin:auto;
+  overflow: hidden;
+}
+
+.slider .slide-track{
+  display:flex;
+  animation: scroll 6s linear infinite;
+  width:  calc(200px * 10);
+ 
+}
+
+.slider .slide{
+  width: 200px;
+  margin-right: 35px;
+}
+
+.slider .slide img{
+  width: 100%;
+}
+
+
+
+
+
+@keyframes scroll{
+  0%{
+    -webkit-transform:translateX(0);
+    transform:translateX(0);
+  }
+  100%{
+    -webkit-transform:translateX(calc(-200px * 5));
+    transform:translateX(calc(-200px * 5));
+  }
+
+}
+
+
+
+/* RESPONSIVE FORM */
+@media screen and (max-width:750px) {
+html {
+    font-size: 12px;
+}
+}
+
+@media screen and (max-width:500px) {
+html {
+    font-size: 10px;
+}
+
+.container-form {
+    height: auto;
+    flex-direction: column;
+}
+
+.information {
+    width: 100%;
+    padding: 20px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0;
+}
+
+.form-information {
+    width: 100%;
+    padding: 20px;
+    border-bottom-left-radius: 20px;
+    border-top-right-radius: 0;
+}
+}
+/* Animación de entrada */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 2s ease-in;
+}
