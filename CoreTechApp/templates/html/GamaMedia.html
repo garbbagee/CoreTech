@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CORETECH</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="../css/estilo.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <img src="../img/LogoCoreTech.png" alt="" width="40" height="34" class="d-inline-block align-text-top">
-      <a class="navbar-brand" href="../html/index.html">CoreTech</a>
+      <img src="{% static 'img/LogoCoreTech.png' %}" alt="Logo CoreTech" width="40" height="34" class="d-inline-block align-text-top">
+      <a class="navbar-brand" href="{% url 'index' %}">CoreTech</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -23,39 +23,36 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../html/index.html"><i class='bx bxs-home'></i>
-              Inicio</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'index' %}"><i class='bx bxs-home'></i> Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="../html/acercade.html"><i class='bx bxs-contact'></i> Quiénes somos</a>
+            <a class="nav-link active" href="{% url 'acercade' %}"><i class='bx bxs-contact'></i> Quiénes somos</a>
           </li>
           <li class="nav-itemCarrito">
-            <a class="nav-link active" aria-current="page" href="../html/carrocompras.html"><i
-                class='bx bx-cart-download'></i> Carro de compras</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'carrocompras' %}"><i class='bx bx-cart-download'></i> Carro de compras</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../html/cuenta.html"><i class='bx bx-user'></i>
-              Cuenta</a>
-          </li>
+            <a class="nav-link active" aria-current="page" href="{% url 'cuenta' %}"><i class='bx bx-user'></i> Cuenta</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Categoria
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="../html/GamaAlta.html">Gama Alta</a></li>
-              <li><a class="dropdown-item" href="../html/GamaMedia.html">Gama Media</a></li>
-              <li><a class="dropdown-item" href="../html/GamaBaja.html">Gama Baja</a></li>
+              <li><a class="dropdown-item" href="{% url 'GamaAlta' %}">Gama Alta</a></li>
+              <li><a class="dropdown-item" href="{% url 'GamaMedia' %}">Gama Media</a></li>
+              <li><a class="dropdown-item" href="{% url 'GamaBaja' %}">Gama Baja</a></li>
             </ul>
+          </li>
         </ul>
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search">
-          <a class="btn btn-primary" href="../html/index.html" role="button">Buscar</a>
+          <a class="btn btn-primary" href="{% url 'index' %}" role="button">Buscar</a>
         </form>
       </div>
     </div>
   </nav>
+
   <!-- Modal Compra -->
   <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -71,11 +68,9 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-success" data-bs-dismiss="modal">Entendido</button>
         </div>
-
       </div>
     </div>
   </div>
-
 
   <div>
     <br>
@@ -85,77 +80,62 @@
   </div>
   <center>
     <div class="container">
-      <div class="row "> <!--Fila 1-->
+      <div class="row"> <!--Fila 1-->
         <div class="col-md-3 col-sm-12">
           <div class="card" style="width: 18rem;">
-            <img src="../img/torre-GM-1.jpg" class="card-img-top tam" alt="...">
+            <img src="{% static 'img/torre-GM-1.jpg' %}" class="card-img-top tam" alt="Chasis para PC semitorre 3000D AIRFLOW, blanco">
             <div class="card-body">
               <h5 class="card-title">Chasis para PC semitorre 3000D AIRFLOW, blanco</h5>
               <p class="card-text">El CORSAIR 3000D AIRFLOW WHITE presenta un chasis ATX semitorre con un...</p>
               <h6>$299.990 CLP</h6>
-              <a href="../html/torregm1.html" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">Seleccionar</a>
+              <a href="{% url 'torregm1' %}" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">Seleccionar</a>
             </div>
           </div>
-
         </div>
         <div class="col-md-3 col-sm-12">
-
           <div class="card" style="width: 18rem;">
-            <img src="../img/gamaMedia2.png" class="card-img-top tam" alt="...">
+            <img src="{% static 'img/gamaMedia2.png' %}" class="card-img-top tam" alt="Chasis para PC Mini-ITX 2000D RGB AIRFLOW, blanco">
             <div class="card-body">
               <h5 class="card-title">Chasis para PC Mini-ITX 2000D RGB AIRFLOW, blanco</h5>
               <p class="card-text">CORSAIR 2000D RGB AIRFLOW es un chasis Mini-ITX de formato pequeño con...</p>
               <h6>$69.990 CLP</h6>
-              <a href="../html/torregm2.html" class="btn btn-primary">Seleccionar</a>
+              <a href="{% url 'torregm2' %}" class="btn btn-primary">Seleccionar</a>
             </div>
           </div>
-
-
         </div>
         <div class="col-md-3 col-sm-12">
-
           <div class="card" style="width: 18rem;">
-            <img src="../img/gamaMedia3.png" class="card-img-top tam" alt="..." height="300px">
+            <img src="{% static 'img/gamaMedia3.png' %}" class="card-img-top tam" alt="Chasis ATX semitorre iCUE 4000D RGB AIRFLOW QL Edition — True White" height="300px">
             <div class="card-body">
               <h5 class="card-title">Chasis ATX semitorre iCUE 4000D RGB AIRFLOW QL Edition — True White</h5>
               <p class="card-text">El chasis semitorre CORSAIR iCUE 4000D RGB AIRFLOW QL Edition incluye...</p>
               <h6>$229.990 CLP</h6>
-              <a href="../html/torregm3.html" class="btn btn-primary">Seleccionar</a>
+              <a href="{% url 'torregm3' %}" class="btn btn-primary">Seleccionar</a>
             </div>
           </div>
-
-
         </div>
         <div class="col-md-3">
-
           <div class="card" style="width: 18rem;">
-            <img src="../img/torre-GM-4.jpg" class="card-img-top" alt="..." height="300px">
+            <img src="{% static 'img/torre-GM-4.jpg' %}" class="card-img-top" alt="Chasis para PC de dos cámaras semitorre 2500D AIRFLOW, negro" height="300px">
             <div class="card-body">
               <h5 class="card-title">Chasis para PC de dos cámaras semitorre 2500D AIRFLOW, negro</h5>
-              <p class="card-text">El chasis para PC de dos cámaras semitorre CORSAIR 2500D AIRFLOW ofrece un flujo de
-                aire...
+              <p class="card-text">El chasis para PC de dos cámaras semitorre CORSAIR 2500D AIRFLOW ofrece un flujo de aire...</p>
               <h6>$199.990 CLP</h6>
-              </p>
-              <a href="../html/torregm4.html" class="btn btn-primary">Seleccionar</a>
+              <a href="{% url 'torregm4' %}" class="btn btn-primary">Seleccionar</a>
             </div>
           </div>
-
         </div>
-
       </div>
 
       <div class="row"><!--Fila 3-->
         <div style="color: white;">
           <br><br>
-          <h3 style="text-align: center; color: white;">Productos en oferta
-          
-          </h3>
+          <h3 style="text-align: center;">Productos en oferta</h3>
           <br>
         </div>
-  
         <div class="col-md-4">
           <div class="card" style="width: 18rem;">
-            <img src="../img/placaasus.png" class="card-img-top" alt="...">
+            <img src="{% static 'img/placaasus.png' %}" class="card-img-top" alt="Placa Madre Asus Prime a520-K">
             <div class="card-body">
               <h5 class="card-title">Placa Madre Asus Prime a520-K</h5>
               <p class="card-text">Placa madre. Velocidad M.2 (Hasta 32Gbps)</p>
@@ -164,10 +144,9 @@
             </div>
           </div>
         </div>
-  
         <div class="col-md-4">
           <div class="card" style="width: 18rem;">
-            <img src="../img/cargador.png" class="card-img-top" alt="...">
+            <img src="{% static 'img/cargador.png' %}" class="card-img-top" alt="Cargador Tipo C">
             <div class="card-body">
               <h5 class="card-title">Cargador Tipo C</h5>
               <p class="card-text">Cargador alternativo con carga rápida, cable USB tipo C</p>
@@ -177,10 +156,9 @@
             </div>
           </div>
         </div>
-  
         <div class="col-md-4">
           <div class="card" style="width: 18rem;">
-            <img src="../img/g203.png" class="card-img-top" alt="..." height="270px">
+            <img src="{% static 'img/g203.png' %}" class="card-img-top" alt="Mouse Logitecg g203" height="270px">
             <div class="card-body">
               <h5 class="card-title">Mouse Logitecg g203</h5>
               <p class="card-text">Con una velocidad de transmisión de 1 ms, el G203 es 8 veces más rápido que el mouse estándar</p>
@@ -191,19 +169,13 @@
           </div>
         </div>
       </div>
-
-
-
     </div><!--Fin contenedor-->
   </center>
-
-
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
-    <script src="../js/java.js"></script>
+  <script src="{% static 'js/java.js' %}"></script>
 
 </body>
-
 </html>
