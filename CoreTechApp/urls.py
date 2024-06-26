@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index, acercade, carrocompras, cuenta, gama_alta, gama_media, gama_baja, torrega1, torrega2, torrega3, torrega4, torregb1, torregb2, torregb3, torregb4, torregm1, torregm2, torregm3, torregm4
+from .views import index, acercade, carrocompras, cuenta, gama_alta, gama_media, gama_baja, torrega1, torrega2, torrega3, torrega4, torregb1, torregb2, torregb3, torregb4, torregm1, torregm2, torregm3, torregm4, register, login_view
 urlpatterns = [
   	path('',index,name="index"),
     path('acercade/', acercade, name='acercade'),
@@ -20,4 +20,6 @@ urlpatterns = [
     path('torregm2/', torregm2, name='torregm2'),
     path('torregm3/', torregm3, name='torregm3'),
     path('torregm4/', torregm4, name='torregm4'),
+     path('register/', register, name='register'),
+    path('login/', login_view, name='login')
 ]

@@ -78,7 +78,8 @@
                   <i class='bx bxl-apple'></i>
                  </div>
                  <p>Usar tu correo para registrarte</p>
-                 <form class="form" id="miFormulario"> 
+                 <form class="form" id="miFormulario" method="POST" action="{% url 'register' %}">
+                     {% csrf_token %}
                      <label>
                          <i class='bx bx-user'></i>
                          <input type="text" name="nombre" id="nombre" placeholder="Nombre Completo">
@@ -97,10 +98,10 @@
                      </label>
                      <label>
                          <i class='bx bx-lock-alt'></i>
-                         <input type="password" id="contra" placeholder="Contraseña">
+                         <input type="password" name="contra" id="contra" placeholder="Contraseña">
                          <i class='idolo bx bx-low-vision' id="eye"></i>
                      </label>
-                     <input type="submit" id="valido" value="Registrarse" required onclick="validarRegistro()">
+                     <input type="submit" id="valido" value="Registrarse">
                  </form>
              </div>
          </div>
@@ -124,14 +125,15 @@
                   <i class='bx bxl-apple'></i>
                  </div>
                  <p>Ingresa tu Correo Eléctronico y Contraseña para Iniciar Sesión</p>
-                 <form class="form" id="total">
+                 <form class="form" id="total" method="POST" action="{% url 'login' %}">
+                     {% csrf_token %}
                      <label>
                          <i class='bx bx-envelope'></i>
-                         <input type="email" id="correo2" placeholder="Correo Electrónico">
+                         <input type="email" name="correo2" id="correo2" placeholder="Correo Electrónico">
                      </label>
                      <label>
                          <i class='bx bx-lock-alt'></i>
-                         <input type="password" id="contra2" placeholder="Contraseña">
+                         <input type="password" name="contra2" id="contra2" placeholder="Contraseña">
                      </label>
                      <input type="submit" value="Iniciar Sesión">
                  </form>
@@ -372,18 +374,37 @@
             if (validarContraseña()) validacionesExitosas++;
             // Verificar si todas las validaciones fueron exitosas
             if (validacionesExitosas === 5) {
-                // Si todas las validaciones son exitosas, muestra un mensaje de éxito
-                Swal.fire({
-                    icon: "success",
-                    title: "Formulario válido",
-                    text: "¡El formulario ha sido validado correctamente!"
-                });
+                // Si todas las validaciones son exitosas, envía el formulario
+                const formData = new FormData();
+                formData.append('nombre', nombre);
+                formData.append('user', usuario);
+                formData.append('fono', fono);
+                formData.append('email', correo);
+                formData.append('contra', contra);
+                formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
 
-                document.getElementById("nombre").value = "";
-                document.getElementById("user").value = "";
-                document.getElementById("fono").value = "";
-                document.getElementById("correo").value = "";
-                document.getElementById("contra").value = "";
+                fetch('{% url "register" %}', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        Swal.fire({
+                            icon: "success",
+                            title: data.message,
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(() => {
+                            window.location.href = "{% url 'index' %}";
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: data.message
+                        });
+                    }
+                });
             }   
         }
     }); /* FIN VALIDACION REGISTRO */
@@ -470,24 +491,33 @@
             var correo2 = document.getElementById("correo2").value;
             var contra2 = document.getElementById("contra2").value;
 
-            if(correo2 == "mart.rozas@duocuc.cl" && contra2 == "M4rtin_123"){
-                Swal.fire({
-                    position: "center",
-                    icon: "success",
-                    title: "Inicio Sesión con exito!",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+            const formData = new FormData();
+            formData.append('correo2', correo2);
+            formData.append('contra2', contra2);
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
 
-                document.getElementById("correo2").value = "";
-                document.getElementById("contra2").value = "";
-            }else{
-                Swal.fire({
-                    icon: "error",
-                    title: "Correo Eléctronico o Contraseña incorrecto",
-                    text: "Intente Otra Vez"
-                });
-            }
+            fetch('{% url "login" %}', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    Swal.fire({
+                        icon: "success",
+                        title: data.message,
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).then(() => {
+                        window.location.href = "{% url 'index' %}";
+                    });
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: data.message
+                    });
+                }
+            });
         }
     }); /* FIN VALIDACION INICIO DE SESION VALIDO */
  </script>
