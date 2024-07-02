@@ -15,44 +15,37 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <img src="../img/LogoCoreTech.png" alt="" width="40" height="34" class="d-inline-block align-text-top">
-      <a class="navbar-brand" href="../html/index.html">CoreTech</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <img src="{% static 'img/LogoCoreTech.png' %}" alt="Logo CoreTech" width="40" height="34" class="d-inline-block align-text-top">
+      <a class="navbar-brand" href="{% url 'index' %}">CoreTech</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../html/index.html"><i class='bx bxs-home'></i>
-              Inicio</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'index' %}"><i class='bx bxs-home'></i> Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="../html/acercade.html"><i class='bx bxs-contact'></i> Quiénes somos</a>
+            <a class="nav-link active" href="{% url 'acercade' %}"><i class='bx bxs-contact'></i> Quiénes somos</a>
           </li>
           <li class="nav-itemCarrito">
-            <a class="nav-link active" aria-current="page" href="../html/carrocompras.html"><i
-                class='bx bx-cart-download'></i> Carro de compras</a>
+            <a class="nav-link active" aria-current="page" href="{% url 'carrocompras' %}"><i class='bx bx-cart-download'></i> Carro de compras</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="../html/cuenta.html"><i class='bx bx-user'></i>
-              Cuenta</a>
-          </li>
+            <a class="nav-link active" aria-current="page" href="{% url 'cuenta' %}"><i class='bx bx-user'></i> Cuenta</a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Categoria
-            </a>
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categoria</a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="../html/GamaAlta.html">Gama Alta</a></li>
-              <li><a class="dropdown-item" href="../html/GamaMedia.html">Gama Media</a></li>
-              <li><a class="dropdown-item" href="../html/GamaBaja.html">Gama Baja</a></li>
+              <li><a class="dropdown-item" href="{% url 'GamaAlta' %}">Gama Alta</a></li>
+              <li><a class="dropdown-item" href="{% url 'GamaMedia' %}">Gama Media</a></li>
+              <li><a class="dropdown-item" href="{% url 'GamaBaja' %}">Gama Baja</a></li>
             </ul>
+          </li>
         </ul>
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search">
-          <a class="btn btn-primary" href="../html/index.html" role="button">Buscar</a>
+          <a class="btn btn-primary" href="{% url 'index' %}" role="button">Buscar</a>
         </form>
       </div>
     </div>
@@ -82,7 +75,7 @@
     <div class="content">
       <div class="image">
         <!-- Coloca aquí tu imagen -->
-        <img src="../img/gamaBaja4.png" alt="Imagen" style="width: 280px;">
+        <img src="{% static 'img/gamaBaja4.png' %}" alt="Imagen" style="width: 280px;">
       </div>
       <div>
         <br>
@@ -124,7 +117,8 @@
 
         <div class="col-md-6">
           <div class="card" style="width: 18rem;">
-            <img src="../img/RecomendadoGB1.png" class="card-img-top" alt="...">
+            <img src="{% static 'img/RecomendadoGB1.png' %}" class="card-img-top" alt="...">
+            
             <div class="card-body">
               <h5 class="card-title">AMD Ryzen 3200G</h5>
               <p class="card-text">Procesador AMD Ryzen™ 3 3200G 4-Core 3.6 GHz (4.0 GHz Max Boost) Socket AM4 65W,
@@ -139,7 +133,7 @@
 
         <div class="col-md-6">
           <div class="card" style="width: 18rem;">
-            <img src="../img/RecomendadoGB2.png" class="card-img-top" alt="...">
+            <img src="{% static 'img/RecomendadoGB2.png' %}" class="card-img-top" alt="...">
             <div class="card-body">
               <class="card-title">
                 <h5>Teclado Mecánico TKL Gamer Switch KB869 Negro</h5>
