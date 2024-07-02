@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.http import JsonResponse
 from django.http import HttpResponse
 import json
+from .forms import ProductoForm, Producto
 
 def index(request):
     return render(request, 'html/index.html')
@@ -122,3 +123,17 @@ def login_view(request):
             return JsonResponse({"status": "error", "message": "Correo electrónico o contraseña incorrectos."})
 
     return render(request, 'cuenta.html')
+
+def listaProductos(request):
+    productos = Producto.objects.all()
+    return render(request, 'html/listaProductos.html', {'productos': productos})
+
+def agregarProducto(request):
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('listaProductos')  # Redirigir a la lista de productos después de agregar
+    else:
+        form = ProductoForm()
+    return render(request, 'html/agregarProducto.html', {'form': form})
