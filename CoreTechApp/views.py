@@ -156,20 +156,40 @@ def listaProductos(request):
     productos = Producto.objects.all()
     return render(request, 'html/listaProductos.html', {'productos': productos})
 
-
+@login_required
 def agregarProducto(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('listaProductos')  # Redirigir a la lista de productos después de agregar
+            return redirect('agregarProducto')  # Redirigir a la misma página después de agregar
     else:
         form = ProductoForm()
-    return render(request, 'html/agregarProducto.html', {'form': form})
+    productos = Producto.objects.all()
+    return render(request, 'html/agregarProducto.html', {'form': form, 'productos': productos})
 
-def productos_gama_alta(request):
-    productos = Producto.objects.filter(categoria='alta')
-    return render(request, 'html/productos_gama_alta.html', {'productos': productos})
+@login_required
+def modificarProducto(request):
+    if request.method == 'POST':
+        producto_id = request.POST.get('producto')
+        nuevo_precio = request.POST.get('precio')
+        producto = get_object_or_404(Producto, id=producto_id)
+        producto.precio = nuevo_precio
+        producto.save()
+        return redirect('agregarProducto')
+
+@login_required
+def eliminarProducto(request):
+    if request.method == 'POST':
+        producto_id = request.POST.get('producto')
+        producto = get_object_or_404(Producto, id=producto_id)
+        producto.delete()
+        return redirect('agregarProducto')
+    
+    
+
+
+
 
 
 @login_required

@@ -9,23 +9,34 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
     <style>
-        body {
-            background-color: #0d1117; /* color de fondo oscuro */
-        }
-        .container h1, 
-        .container h3,
-        .table thead th,
-        .table tbody td,
-        .table tbody th {
-            color: white;
-        }
-        .table {
-            color: white;
-        }
-        .table thead th {
-            border-bottom: 1px solid white;
-        }
-    </style>
+      body {
+          background: 
+              linear-gradient(to bottom right, #010138, #243699), /* Degradado de azul oscuro a azul claro */
+              linear-gradient(to bottom, #0e78e2, #3c69e6),       /* Degradado de azul a blanco */
+              linear-gradient(to top right, #0000CD, #00BFFF);    /* Degradado de azul medio a azul claro */
+          background-size: cover;
+          background-repeat: no-repeat;
+          margin: 0;
+          height: 100vh;
+          width: 100%;
+          overflow: auto; /* Permite el desplazamiento en caso de contenido largo */
+      }
+  
+      .container h1, 
+      .container h3,
+      .table thead th,
+      .table tbody td,
+      .table tbody th {
+          color: white;
+      }
+      .table {
+          color: white;
+      }
+      .table thead th {
+          border-bottom: 1px solid white;
+      }
+  </style>
+  
 </head>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">

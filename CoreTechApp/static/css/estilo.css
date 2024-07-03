@@ -1,15 +1,15 @@
 body {
   background: 
-  linear-gradient(to bottom right, #010138, #243699), /* Degradado de azul oscuro a azul claro */
-  linear-gradient(to bottom, #0e78e2, #3c69e6),       /* Degradado de azul a blanco */
-  linear-gradient(to top right, #0000CD, #00BFFF);    /* Degradado de azul medio a azul claro */
-    
-  background-size: cover;
-  background-repeat: no-repeat;
+    linear-gradient(to bottom right, #010138, #243699), /* Degradado de azul oscuro a azul claro */
+    linear-gradient(to bottom, #0e78e2, #3c69e6),       /* Degradado de azul a blanco */
+    linear-gradient(to top right, #0000CD, #00BFFF);    /* Degradado de azul medio a azul claro */
+  
+  background-size: cover; /* Asegura que el fondo cubra toda la pantalla */
+  background-repeat: no-repeat; /* Evita que el fondo se repita */
   margin: 0;
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  overflow-x: hidden; /* Mantén oculto el desbordamiento horizontal */
 }
 
 
