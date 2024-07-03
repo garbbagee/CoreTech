@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -7,6 +7,9 @@ from django.http import JsonResponse
 from django.http import HttpResponse
 import json
 from .forms import ProductoForm, Producto
+from django.contrib.auth.decorators import login_required
+from .carrito_models import Carrito, ItemCarrito
+
 
 def index(request):
     return render(request, 'html/index.html')
@@ -21,13 +24,32 @@ def cuenta(request):
     return render(request, 'html/cuenta.html')
 
 def gama_alta(request):
-    return render(request, 'html/GamaAlta.html')
+    productos = Producto.objects.filter(categoria='alta')
+    for producto in productos:
+        if producto.imagen:
+            producto.image_url = producto.imagen.url
+        else:
+            producto.image_url = 'https://via.placeholder.com/150'
+    return render(request, 'html/GamaAlta.html', {'productos': productos})
 
 def gama_media(request):
-    return render(request, 'html/GamaMedia.html')
+    productos = Producto.objects.filter(categoria='media')
+    for producto in productos:
+        if producto.imagen:
+            producto.image_url = producto.imagen.url
+        else:
+            producto.image_url = 'https://via.placeholder.com/150'
+    return render(request, 'html/GamaMedia.html', {'productos': productos})
+
 
 def gama_baja(request):
-    return render(request, 'html/GamaBaja.html')
+    productos = Producto.objects.filter(categoria='baja')
+    for producto in productos:
+        if producto.imagen:
+            producto.image_url = producto.imagen.url
+        else:
+            producto.image_url = 'https://via.placeholder.com/150'
+    return render(request, 'html/GamaBaja.html', {'productos': productos})
 
 # Agregar las vistas para los otros archivos HTML
 def torrega1(request):
@@ -137,3 +159,30 @@ def agregarProducto(request):
     else:
         form = ProductoForm()
     return render(request, 'html/agregarProducto.html', {'form': form})
+
+def productos_gama_alta(request):
+    productos = Producto.objects.filter(categoria='alta')
+    return render(request, 'html/productos_gama_alta.html', {'productos': productos})
+
+
+@login_required
+def agregar_al_carrito(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    carrito, created = Carrito.objects.get_or_create(usuario=request.user)
+    item, created = ItemCarrito.objects.get_or_create(carrito=carrito, producto=producto)
+    if not created:
+        item.cantidad += 1
+        item.save()
+    return redirect('ver_carrito')
+
+@login_required
+def ver_carrito(request):
+    carrito, created = Carrito.objects.get_or_create(usuario=request.user)
+    total = sum(item.total() for item in carrito.items.all())
+    return render(request, 'html/ver_carrito.html', {'carrito': carrito, 'total': total})
+
+@login_required
+def eliminar_del_carrito(request, item_id):
+    item = get_object_or_404(ItemCarrito, id=item_id)
+    item.delete()
+    return redirect('ver_carrito')

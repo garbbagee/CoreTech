@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
-from .views import index, acercade, carrocompras, cuenta, gama_alta, gama_media, gama_baja, torrega1, torrega2, torrega3, torrega4, torregb1, torregb2, torregb3, torregb4, torregm1, torregm2, torregm3, torregm4, register, login_view, agregarProducto, listaProductos
+from .views import index, acercade, carrocompras, cuenta, gama_alta, gama_media, gama_baja, torrega1, torrega2, torrega3, torrega4
+from .views import torregb1, torregb2, torregb3, torregb4, torregm1, torregm2, torregm3, torregm4, register, login_view, agregarProducto, listaProductos, agregar_al_carrito, ver_carrito, eliminar_del_carrito
 urlpatterns = [
   	path('',index,name="index"),
     path('acercade/', acercade, name='acercade'),
@@ -25,4 +26,7 @@ urlpatterns = [
     path('login/', login_view, name='login'),
     path('agregarProducto/', views.agregarProducto, name='agregarProducto'),
     path('listaProductos/', views.listaProductos, name='listaProductos'),
+     path('agregar/<int:producto_id>/', agregar_al_carrito, name='agregar_al_carrito'),
+    path('carrito/', ver_carrito, name='ver_carrito'),
+    path('eliminar/<int:item_id>/', eliminar_del_carrito, name='eliminar_del_carrito'),
 ]

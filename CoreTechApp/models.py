@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Producto(models.Model):
     CATEGORIAS = [
         ('alta', 'Gama Alta'),
