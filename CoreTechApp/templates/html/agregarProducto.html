@@ -2,7 +2,7 @@
 <html>
 {% load static %}
 <head>
-    <title>Agregar Producto</title>
+    <title>Gestión de Productos</title>
     <style>
         body {
             background:
@@ -12,18 +12,22 @@
             display: flex;
             font-family: 'Montserrat', sans-serif;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             height: 100vh;
-            margin: 0;
+            margin: 10px;
+            padding: 100px;
+            box-sizing: border-box;
+            flex-direction: column;
         }
         .form-container {
             background-color: #0084ffc9;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 50%;
+            width: 100%;
             max-width: 800px;
             text-align: center;
+            margin-bottom: 20px;
         }
         .form-container h1 {
             color: #000000;
@@ -61,45 +65,62 @@
             background-color: #566ce9; /* Color de fondo al pasar el ratón */
             color: #ffffff; /* Color del texto al pasar el ratón */
         }
+
+        @media (min-width: 768px) {
+            .container {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                flex-wrap: wrap;
+            }
+            .form-container {
+                flex: 1;
+                margin: 10px;
+            }
+        }
     </style>
 </head>
 <body>
-    <h2>Agregar Producto</h2>
-    <div class="form-container">
-        <h1>Agregar Producto</h1>
-        <form method="post" enctype="multipart/form-data" action="{% url 'agregarProducto' %}">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Guardar</button>
-        </form>
+    
+    <div class="container">
+        <div class="form-container">
+            <h1>Agregar Producto</h1>
+            <form method="post" enctype="multipart/form-data" action="{% url 'agregarProducto' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+
+        <div class="form-container">
+            <h1>Modificar Producto</h1>
+            <form method="post" enctype="multipart/form-data" action="{% url 'modificar_producto' %}">
+                {% csrf_token %}
+                <label for="producto">Seleccione el producto a modificar:</label>
+                <select name="producto" id="producto">
+                    {% for producto in productos %}
+                        <option value="{{ producto.id }}">{{ producto.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <label for="precio">Nuevo Precio:</label>
+                <input type="text" name="precio" id="precio" required>
+                <button type="submit">Modificar</button>
+            </form>
+        </div>
+
+        <div class="form-container">
+            <h1>Eliminar Producto</h1>
+            <form method="post" action="{% url 'eliminar_producto' %}">
+                {% csrf_token %}
+                <label for="producto">Seleccione el producto a eliminar:</label>
+                <select name="producto" id="producto">
+                    {% for producto in productos %}
+                        <option value="{{ producto.id }}">{{ producto.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Eliminar</button>
+            </form>
+        </div>
     </div>
-
-    <h2>Modificar Producto</h2>
-    <form method="post" enctype="multipart/form-data" action="{% url 'modificar_producto' %}">
-        {% csrf_token %}
-        <label for="producto">Seleccione el producto a modificar:</label>
-        <select name="producto" id="producto">
-            {% for producto in productos %}
-                <option value="{{ producto.id }}">{{ producto.nombre }}</option>
-            {% endfor %}
-        </select>
-        <label for="precio">Nuevo Precio:</label>
-        <input type="text" name="precio" id="precio" required>
-        <button type="submit">Modificar</button>
-    </form>
-
-    <h2>Eliminar Producto</h2>
-    <form method="post" action="{% url 'eliminar_producto' %}">
-        {% csrf_token %}
-        <label for="producto">Seleccione el producto a eliminar:</label>
-        <select name="producto" id="producto">
-            {% for producto in productos %}
-                <option value="{{ producto.id }}">{{ producto.nombre }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Eliminar</button>
-    </form>
-
 </body>
 </html>
-
