@@ -9,6 +9,12 @@ import json
 from .forms import ProductoForm, Producto
 from django.contrib.auth.decorators import login_required
 from .carrito_models import Carrito, ItemCarrito
+from django.conf import settings
+import paypalrestsdk
+from .paypal import paypalrestsdk
+import logging
+from decimal import Decimal
+from django.urls import reverse
 
 
 def index(request):
@@ -150,6 +156,7 @@ def listaProductos(request):
     productos = Producto.objects.all()
     return render(request, 'html/listaProductos.html', {'productos': productos})
 
+
 def agregarProducto(request):
     if request.method == 'POST':
         form = ProductoForm(request.POST, request.FILES)
@@ -186,3 +193,59 @@ def eliminar_del_carrito(request, item_id):
     item = get_object_or_404(ItemCarrito, id=item_id)
     item.delete()
     return redirect('ver_carrito')
+
+
+#paypal api
+@login_required
+def procesar_pago(request):
+    carrito, created = Carrito.objects.get_or_create(usuario=request.user)
+    total_clp = sum(item.total() for item in carrito.items.all())
+    
+    # Convertir total_clp a float
+    total_clp_float = float(total_clp)
+    
+    # Tasa de conversión CLP a USD actualizada
+    conversion_rate = 0.0011  # Tasa de conversión correcta
+    total_usd = total_clp_float * conversion_rate
+    
+    pago = paypalrestsdk.Payment({
+        "intent": "sale",
+        "payer": {
+            "payment_method": "paypal"},
+        "transactions": [{
+            "amount": {
+                "total": f"{total_usd:.2f}",
+                "currency": "USD"},
+            "description": "Compra en CoreTech"}],
+        "redirect_urls": {
+            "return_url": request.build_absolute_uri(reverse('paypal_return')),
+            "cancel_url": request.build_absolute_uri(reverse('paypal_cancel'))}})
+
+    if pago.create():
+        for link in pago.links:
+            if link.rel == "approval_url":
+                return redirect(link.href)
+    else:
+        logging.error(pago.error)
+        return HttpResponse("Error al crear el pago en PayPal")
+
+
+@login_required
+def paypal_return(request):
+    payment_id = request.GET.get('paymentId')
+    payer_id = request.GET.get('PayerID')
+
+    payment = paypalrestsdk.Payment.find(payment_id)
+
+    if payment.execute({"payer_id": payer_id}):
+        carrito = Carrito.objects.get(usuario=request.user)
+        carrito.items.all().delete()  # Vaciar el carrito
+        return render(request, 'html/success.html')
+    else:
+        return render(request, 'html/error.html', {'error': payment.error})
+
+@login_required
+def paypal_cancel(request):
+    return render(request, 'html/cancel.html')
+
+
