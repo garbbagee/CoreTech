@@ -1,34 +1,78 @@
 <!DOCTYPE html>
 <html>
+{% load static %}
 <head>
     <title>Agregar Producto</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            background:
+                linear-gradient(to bottom right, #010138, #2f44b6), /* Degradado de azul oscuro a azul claro */
+                linear-gradient(to bottom, #c25151, #e63c3c),       /* Degradado de azul a blanco */
+                linear-gradient(to top right, #ffffff, #00BFFF);    /* Degradado de azul medio a azul claro */
+            display: flex;
+            font-family: 'Montserrat', sans-serif;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-
-        form {
+        .form-container {
+            background-color: #0084ffc9;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            max-width: 800px;
+            text-align: center;
+        }
+        .form-container h1 {
+            color: #000000;
             margin-bottom: 20px;
         }
-
-        label {
+        .form-container label {
             display: block;
-            margin-top: 10px;
+            margin: 10px 0 5px;
+            text-align: left;
+            color: #000000;
+        }
+        .form-container input[type="text"],
+        .form-container textarea,
+        .form-container select,
+        .form-container input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-sizing: border-box;
         }
 
-        input, select, button {
-            margin-top: 5px;
+        .form-container button[type="submit"] {
+            background-color: transparent; /* Fondo inicialmente transparente */
+            color: #000000; /* Color del texto */
+            border: 2px solid #012349; /* Borde negro */
+            border-radius: 30px; /* Bordes ovalados */
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transición para el efecto hover */
+        }
+
+        .form-container button[type="submit"]:hover {
+            background-color: #566ce9; /* Color de fondo al pasar el ratón */
+            color: #ffffff; /* Color del texto al pasar el ratón */
         }
     </style>
 </head>
 <body>
     <h2>Agregar Producto</h2>
-    <form method="post" enctype="multipart/form-data" action="{% url 'agregarProducto' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Guardar</button>
-    </form>
+    <div class="form-container">
+        <h1>Agregar Producto</h1>
+        <form method="post" enctype="multipart/form-data" action="{% url 'agregarProducto' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Guardar</button>
+        </form>
+    </div>
 
     <h2>Modificar Producto</h2>
     <form method="post" enctype="multipart/form-data" action="{% url 'modificar_producto' %}">
@@ -55,5 +99,7 @@
         </select>
         <button type="submit">Eliminar</button>
     </form>
+
 </body>
 </html>
+
