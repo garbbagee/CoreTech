@@ -35,6 +35,7 @@ urlpatterns = [
     path('paypal/cancel/', paypal_cancel, name='paypal_cancel'),
     path('modificar/', modificarProducto, name='modificar_producto'),
     path('eliminarProducto/', views.eliminarProducto, name='eliminar_producto'),
+    path('agregar/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito')
 
 
 ]

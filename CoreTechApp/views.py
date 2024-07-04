@@ -15,10 +15,31 @@ from .paypal import paypalrestsdk
 import logging
 from decimal import Decimal
 from django.urls import reverse
+import random
 
+
+from django.shortcuts import render
+from .models import Producto
+import random
 
 def index(request):
-    return render(request, 'html/index.html')
+    productos = list(Producto.objects.all())
+    productos_destacados = random.sample(productos, min(len(productos), 4))
+    productos_oferta = list(Producto.objects.filter(categoria='otros'))
+    if len(productos_oferta) > 3:
+        productos_oferta = random.sample(productos_oferta, 3)
+    
+    for producto in productos_destacados + productos_oferta:
+        if producto.imagen:
+            producto.image_url = producto.imagen.url
+        else:
+            producto.image_url = 'https://via.placeholder.com/150'
+    
+    return render(request, 'html/index.html', {
+        'productos_destacados': productos_destacados,
+        'productos_oferta': productos_oferta,
+    })
+
 
 def acercade(request):
     return render(request, 'html/acercade.html')

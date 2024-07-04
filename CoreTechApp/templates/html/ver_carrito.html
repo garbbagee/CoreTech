@@ -41,45 +41,54 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <img src="{% static 'img/LogoCoreTech.png' %}" alt="Logo CoreTech" width="40" height="34" class="d-inline-block align-text-top">
-      <a class="navbar-brand" href="{% url 'index' %}">CoreTech</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'index' %}"><i class='bx bxs-home'></i> Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'acercade' %}"><i class='bx bxs-contact'></i> Quiénes somos</a>
-          </li>
-          <li class="nav-itemCarrito">
-            <a class="nav-link active" aria-current="page" href="{% url 'ver_carrito' %}"><i class='bx bx-cart-download'></i> Carro de compras</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'cuenta' %}"><i class='bx bx-user'></i> Cuenta</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Categoria
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{% url 'GamaAlta' %}">Gama Alta</a></li>
-              <li><a class="dropdown-item" href="{% url 'GamaMedia' %}">Gama Media</a></li>
-              <li><a class="dropdown-item" href="{% url 'GamaBaja' %}">Gama Baja</a></li>
+        <img src="{% static 'img/LogoCoreTech.png' %}" alt="Logo CoreTech" width="40" height="34" class="d-inline-block align-text-top">
+        <a class="navbar-brand" href="{% url 'index' %}">CoreTech</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}"><i class='bx bxs-home'></i> Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'acercade' %}"><i class='bx bxs-contact'></i> Quiénes somos</a>
+                </li>
+                <li class="nav-itemCarrito">
+                    <a class="nav-link active" aria-current="page" href="{% url 'ver_carrito' %}">
+                        <i class='bx bx-cart-download'></i> Carro de compras
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'cuenta' %}"><i class='bx bx-user'></i> Cuenta</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Categoria
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'GamaAlta' %}">Gama Alta</a></li>
+                        <li><a class="dropdown-item" href="{% url 'GamaMedia' %}">Gama Media</a></li>
+                        <li><a class="dropdown-item" href="{% url 'GamaBaja' %}">Gama Baja</a></li>
+                    </ul>
+                </li>
+                {% if request.user.is_authenticated and request.user.email == "admin@gmail.com" %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'agregarProducto' %}"><i class='bx bxs-plus-square'></i> Agregar Producto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'listaProductos' %}"><i class='bx bx-list-ul'></i> Lista de Productos</a>
+                </li>
+                {% endif %}
             </ul>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search">
-          <a class="btn btn-primary" href="{% url 'index' %}" role="button">Buscar</a>
-        </form>
-      </div>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search">
+                <a class="btn btn-primary" href="{% url 'index' %}" role="button">Buscar</a>
+            </form>
+        </div>
     </div>
-  </nav>
+</nav>
 
   <div class="container mt-5">
     <h1>Carrito de Compras</h1>

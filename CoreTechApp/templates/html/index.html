@@ -9,69 +9,90 @@
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
   <style>
-    /* Estilos para el título */
     h1, h4 {
-      color: white; /* Color del texto */
-      margin: 0; /* Eliminar el margen predeterminado del título */
+      color: white;
+      margin: 0;
+    }
+    .card {
+      margin-bottom: 20px;
+    }
+    .card-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
     }
   </style>
 </head>
 <body class="fade-in">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <img src="{% static 'img/LogoCoreTech.png' %}" alt="Logo CoreTech" width="40" height="34" class="d-inline-block align-text-top">
-      <a class="navbar-brand" href="{% url 'index' %}">CoreTech</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'index' %}"><i class='bx bxs-home'></i> Inicio</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'acercade' %}"><i class='bx bxs-contact'></i> Quiénes somos</a>
-          </li>
-          <li class="nav-itemCarrito">
-            <a class="nav-link active" aria-current="page" href="{% url 'ver_carrito' %}">
-                <i class='bx bx-cart-download'></i> Carro de compras
-            </a>
-        </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'cuenta' %}"><i class='bx bx-user'></i> Cuenta</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Categoria
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="{% url 'GamaAlta' %}">Gama Alta</a></li>
-              <li><a class="dropdown-item" href="{% url 'GamaMedia' %}">Gama Media</a></li>
-              <li><a class="dropdown-item" href="{% url 'GamaBaja' %}">Gama Baja</a></li>
+        <img src="{% static 'img/LogoCoreTech.png' %}" alt="Logo CoreTech" width="40" height="34" class="d-inline-block align-text-top">
+        <a class="navbar-brand" href="{% url 'index' %}">CoreTech</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'index' %}"><i class='bx bxs-home'></i> Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'acercade' %}"><i class='bx bxs-contact'></i> Quiénes somos</a>
+                </li>
+                <li class="nav-itemCarrito">
+                    <a class="nav-link active" aria-current="page" href="{% url 'ver_carrito' %}">
+                        <i class='bx bx-cart-download'></i> Carro de compras
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'cuenta' %}"><i class='bx bx-user'></i> Cuenta</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Categoria
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="{% url 'GamaAlta' %}">Gama Alta</a></li>
+                        <li><a class="dropdown-item" href="{% url 'GamaMedia' %}">Gama Media</a></li>
+                        <li><a class="dropdown-item" href="{% url 'GamaBaja' %}">Gama Baja</a></li>
+                    </ul>
+                </li>
+                {% if request.user.is_authenticated and request.user.email == "admin@gmail.com" %}
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'agregarProducto' %}"><i class='bx bxs-plus-square'></i> Agregar Producto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'listaProductos' %}"><i class='bx bx-list-ul'></i> Lista de Productos</a>
+                </li>
+                {% endif %}
             </ul>
-          </li>
-        </ul>
-        <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search">
-          <a class="btn btn-primary" href="{% url 'index' %}" role="button">Buscar</a>
-        </form>
-      </div>
+            <form class="d-flex">
+                <input class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search">
+                <a class="btn btn-primary" href="{% url 'index' %}" role="button">Buscar</a>
+            </form>
+        </div>
     </div>
-  </nav>
+</nav>
 
-  <div class="modal fade" id="staticBackdrop3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Agregado al Carro</h5>
+          <h5 class="modal-title" id="productModalLabel">Producto</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Producto agregado exitosamente</p>
+          <img id="productImage" src="" alt="Producto" class="img-fluid mb-3">
+          <h5 id="productName"></h5>
+          <p id="productDescription"></p>
+          <h6 id="productPrice"></h6>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Entendido</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <a id="addToCartLink" class="btn btn-primary">Añadir al carro</a>
         </div>
       </div>
     </div>
@@ -111,52 +132,26 @@
   <br>
   <div class="container">
     <div class="row">
+      {% for producto in productos_destacados %}
       <div class="col-md-3 col-sm-12">
         <div class="card" style="width: 18rem;">
-          <img src="{% static 'img/ryzen5600g.png' %}" class="card-img-top tam" alt="...">
+          <img src="{{ producto.image_url }}" class="card-img-top tam" alt="{{ producto.nombre }}">
           <div class="card-body">
-            <h5 class="card-title">AMD Ryzen 5600g</h5>
-            <p class="card-text">Procesador AMD Ryzen 5600g Gráficos Integrados Vega 7</p>
-            <br>
-            <h6>$180.000</h6>
-            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">Añadir al carro</a>
+            <h5 class="card-title">{{ producto.nombre }}</h5>
+            <p class="card-text">{{ producto.descripcion|truncatewords:20 }}</p>
+            <h6>${{ producto.precio }} CLP</h6>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal"
+                    data-id="{{ producto.id }}"
+                    data-name="{{ producto.nombre }}"
+                    data-description="{{ producto.descripcion }}"
+                    data-price="${{ producto.precio }} CLP"
+                    data-image="{{ producto.image_url }}">
+              Seleccionar
+            </button>
           </div>
         </div>
       </div>
-      <div class="col-md-3 col-sm-12">
-        <div class="card" style="width: 18rem;">
-          <img src="{% static 'img/geforcertx3060.png' %}" class="card-img-top tam" alt="..." height="300px">
-          <div class="card-body">
-            <h5 class="card-title">GeForce RTX 3060</h5>
-            <p class="card-text">Tarjeta Gráfica NVIDIA Integrada con 12 GB GDDR6 Interfaz de memoria de 192 bits</p>
-            <h6>$320.000</h6>
-            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">Añadir al carro</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3 col-sm-12">
-        <div class="card" style="width: 18rem;">
-          <img src="{% static 'img/audilogitechg332.png' %}" class="card-img-top tam" alt="..." height="300px">
-          <div class="card-body">
-            <h5 class="card-title">Audífonos Logitech G332</h5>
-            <p class="card-text">Audífonos Over-Ear con micrófono incluido, cable de 2 metros</p>
-            <br>
-            <h6>$46.990</h6>
-            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">Añadir al carro</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="card" style="width: 18rem;">
-          <img src="{% static 'img/tostadora.png' %}" class="card-img-top" alt="..." height="300px">
-          <div class="card-body">
-            <h5 class="card-title">Tostadora Oster 4 Rebanadas</h5>
-            <p class="card-text">9 Niveles de tostado. Función para descongelar. Bandeja removible</p>
-            <h6>$54.000</h6>
-            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">Añadir al carro</a>
-          </div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
 
     <div class="row">
@@ -165,43 +160,28 @@
         <h3 style="text-align: center; color: white; font-weight: bold; letter-spacing: 1px;">Productos en oferta</h3>
         <br>
       </div>
-      <div class="col-md-4">
+      {% for producto in productos_oferta %}
+      <div class="col-md-3 col-sm-12">
         <div class="card" style="width: 18rem;">
-          <img src="{% static 'img/placaasus.png' %}" class="card-img-top" alt="...">
+          <img src="{{ producto.image_url }}" class="card-img-top tam" alt="{{ producto.nombre }}">
           <div class="card-body">
-            <h5 class="card-title">Placa Madre Asus Prime a520-K</h5>
-            <p class="card-text">Placa madre. Velocidad M.2 (Hasta 32Gbps)</p>
-            <h5>$73.990</h5>
-            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">Añadir al carro</a>
+            <h5 class="card-title">{{ producto.nombre }}</h5>
+            <p class="card-text">{{ producto.descripcion|truncatewords:20 }}</p>
+            <h6>${{ producto.precio }} CLP</h6>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productModal"
+                    data-id="{{ producto.id }}"
+                    data-name="{{ producto.nombre }}"
+                    data-description="{{ producto.descripcion }}"
+                    data-price="${{ producto.precio }} CLP"
+                    data-image="{{ producto.image_url }}">
+              Seleccionar
+            </button>
           </div>
         </div>
       </div>
-      <div class="col-md-4">
-        <div class="card" style="width: 18rem;">
-          <img src="{% static 'img/cargador.png' %}" class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Cargador Tipo C</h5>
-            <p class="card-text">Cargador alternativo con carga rápida, cable USB tipo C</p>
-            <h5>$18.000</h5>
-            <br><br>
-            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">Añadir al carro</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card" style="width: 18rem;">
-          <img src="{% static 'img/g203.png' %}" class="card-img-top" alt="..." height="270px">
-          <div class="card-body">
-            <h5 class="card-title">Mouse Logitecg g203</h5>
-            <p class="card-text">Con una velocidad de transmisión de 1 ms, el G203 es 8 veces más rápido que el mouse estándar</p>
-            <h5>$16.000</h5>
-            <br>
-            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop3">Añadir al carro</a>
-          </div>
-        </div>
-      </div>
+      {% endfor %}
     </div>
-    
+
     <br><br>
     <h1 class="centrarTextoW">Marcas con las que trabajamos</h1>
     <br><br>
@@ -255,6 +235,30 @@
         setTimeout(function() {
             title.classList.add('show');
         }, 320);
+
+        const productModal = document.getElementById('productModal');
+        productModal.addEventListener('show.bs.modal', event => {
+          const button = event.relatedTarget;
+          const id = button.getAttribute('data-id');
+          const name = button.getAttribute('data-name');
+          const description = button.getAttribute('data-description');
+          const price = button.getAttribute('data-price');
+          const image = button.getAttribute('data-image');
+
+          const modalTitle = productModal.querySelector('.modal-title');
+          const modalBodyImage = productModal.querySelector('#productImage');
+          const modalBodyName = productModal.querySelector('#productName');
+          const modalBodyDescription = productModal.querySelector('#productDescription');
+          const modalBodyPrice = productModal.querySelector('#productPrice');
+          const addToCartLink = productModal.querySelector('#addToCartLink');
+
+          modalTitle.textContent = name;
+          modalBodyImage.src = image;
+          modalBodyName.textContent = name;
+          modalBodyDescription.textContent = description;
+          modalBodyPrice.textContent = price;
+          addToCartLink.href = '{% url "agregar_al_carrito" 0 %}'.slice(0, -1) + id + '/';
+        });
     });
   </script>
   <script src="{% static 'js/java.js' %}"></script>
