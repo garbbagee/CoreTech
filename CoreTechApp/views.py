@@ -16,11 +16,11 @@ import logging
 from decimal import Decimal
 from django.urls import reverse
 import random
-
-
 from django.shortcuts import render
 from .models import Producto
 import random
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
 
 def index(request):
     productos = list(Producto.objects.all())
@@ -242,11 +242,8 @@ def procesar_pago(request):
     carrito, created = Carrito.objects.get_or_create(usuario=request.user)
     total_clp = sum(item.total() for item in carrito.items.all())
     
-    # Convertir total_clp a float
     total_clp_float = float(total_clp)
-    
-    # Tasa de conversión CLP a USD actualizada
-    conversion_rate = 0.0011  # Tasa de conversión correcta
+    conversion_rate = 0.0011
     total_usd = total_clp_float * conversion_rate
     
     pago = paypalrestsdk.Payment({
@@ -265,11 +262,11 @@ def procesar_pago(request):
     if pago.create():
         for link in pago.links:
             if link.rel == "approval_url":
+                logging.info(f"Redirigiendo a PayPal: {link.href}")
                 return redirect(link.href)
     else:
         logging.error(pago.error)
         return HttpResponse("Error al crear el pago en PayPal")
-
 
 @login_required
 def paypal_return(request):
@@ -280,13 +277,53 @@ def paypal_return(request):
 
     if payment.execute({"payer_id": payer_id}):
         carrito = Carrito.objects.get(usuario=request.user)
+        request.session['carrito_id'] = carrito.id
         carrito.items.all().delete()  # Vaciar el carrito
-        return render(request, 'html/success.html')
+        logging.info("Pago ejecutado con éxito")
+        return redirect('thank_you')
     else:
+        logging.error(f"Error ejecutando el pago: {payment.error}")
         return render(request, 'html/error.html', {'error': payment.error})
 
 @login_required
 def paypal_cancel(request):
     return render(request, 'html/cancel.html')
 
+@login_required
+def thank_you(request):
+    return render(request, 'html/thank_you.html')
 
+@login_required
+def descargar_boleta(request):
+    carrito_id = request.session.get('carrito_id')
+    carrito = Carrito.objects.get(id=carrito_id)
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="boleta.pdf"'
+
+    p = canvas.Canvas(response, pagesize=letter)
+    width, height = letter
+
+    p.setFont("Helvetica-Bold", 20)
+    p.drawString(30, height - 50, "Boleta de Compra")
+
+    p.setFont("Helvetica", 12)
+    p.drawString(30, height - 80, f"Comprador: {request.user.username}")
+    p.drawString(30, height - 100, f"Email: {request.user.email}")
+
+    p.drawString(30, height - 140, "Detalles de la Compra:")
+    y = height - 160
+    total = 0
+    for item in carrito.items.all():
+        p.drawString(30, y, f"{item.producto.nombre} - {item.cantidad} x ${item.producto.precio} CLP")
+        total += item.total()
+        y -= 20
+
+    p.drawString(30, y - 20, f"Total: ${total} CLP")
+
+    p.setFont("Helvetica-Oblique", 10)
+    p.drawString(30, 30, "Gracias por su compra!")
+
+    p.showPage()
+    p.save()
+
+    return response

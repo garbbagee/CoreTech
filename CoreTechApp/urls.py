@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from .views import index, acercade, carrocompras, cuenta, gama_alta, gama_media, gama_baja, torrega1, torrega2, torrega3, torrega4
-from .views import torregb1, torregb2, torregb3, torregb4, torregm1, torregm2, torregm3, torregm4, register, login_view, agregarProducto
+from .views import torregb1, torregb2, torregb3, torregb4, torregm1, torregm2, torregm3, torregm4, register, login_view, agregarProducto, thank_you, descargar_boleta
 from .views import listaProductos, agregar_al_carrito, ver_carrito, eliminar_del_carrito, procesar_pago, paypal_return, paypal_cancel, modificarProducto, eliminarProducto
 urlpatterns = [
   	path('',index,name="index"),
@@ -35,7 +35,8 @@ urlpatterns = [
     path('paypal/cancel/', paypal_cancel, name='paypal_cancel'),
     path('modificar/', modificarProducto, name='modificar_producto'),
     path('eliminarProducto/', views.eliminarProducto, name='eliminar_producto'),
-    path('agregar/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito')
-
+    path('agregar/<int:producto_id>/', views.agregar_al_carrito, name='agregar_al_carrito'),
+    path('thank_you/', thank_you, name='thank_you'),
+    path('descargar_boleta/', descargar_boleta, name='descargar_boleta')
 
 ]
