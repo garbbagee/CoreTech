@@ -21,6 +21,8 @@ from .models import Producto
 import random
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
+from decimal import Decimal
+
 
 def index(request):
     productos = list(Producto.objects.all())
@@ -214,6 +216,36 @@ def eliminarProducto(request):
 
 
 @login_required
+def agregarProducto(request):
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('agregarProducto')
+    else:
+        form = ProductoForm()
+    productos = Producto.objects.all()
+    return render(request, 'html/agregarProducto.html', {'form': form, 'productos': productos})
+
+@login_required
+def modificarProducto(request):
+    if request.method == 'POST':
+        producto_id = request.POST.get('producto')
+        nuevo_precio = request.POST.get('precio')
+        producto = get_object_or_404(Producto, id=producto_id)
+        producto.precio = nuevo_precio
+        producto.save()
+        return redirect('agregarProducto')
+
+@login_required
+def eliminarProducto(request):
+    if request.method == 'POST':
+        producto_id = request.POST.get('producto')
+        producto = get_object_or_404(Producto, id=producto_id)
+        producto.delete()
+        return redirect('agregarProducto')
+
+@login_required
 def agregar_al_carrito(request, producto_id):
     producto = get_object_or_404(Producto, id=producto_id)
     carrito, created = Carrito.objects.get_or_create(usuario=request.user)
@@ -235,8 +267,6 @@ def eliminar_del_carrito(request, item_id):
     item.delete()
     return redirect('ver_carrito')
 
-
-#paypal api
 @login_required
 def procesar_pago(request):
     carrito, created = Carrito.objects.get_or_create(usuario=request.user)
@@ -277,12 +307,17 @@ def paypal_return(request):
 
     if payment.execute({"payer_id": payer_id}):
         carrito = Carrito.objects.get(usuario=request.user)
-        request.session['carrito_id'] = carrito.id
-        carrito.items.all().delete()  # Vaciar el carrito
-        logging.info("Pago ejecutado con éxito")
+        items = list(carrito.items.all())  # Guardamos los items antes de vaciar el carrito
+        total = sum(float(item.total()) for item in items)  # Convertir a float
+
+        # Vaciar el carrito
+        carrito.items.all().delete()
+
+        # Guardar los items y el total en la sesión
+        request.session['boleta_items'] = [item.id for item in items]
+        request.session['boleta_total'] = float(total)  # Asegurar que el total esté en formato float
         return redirect('thank_you')
     else:
-        logging.error(f"Error ejecutando el pago: {payment.error}")
         return render(request, 'html/error.html', {'error': payment.error})
 
 @login_required
@@ -295,35 +330,44 @@ def thank_you(request):
 
 @login_required
 def descargar_boleta(request):
-    carrito_id = request.session.get('carrito_id')
-    carrito = Carrito.objects.get(id=carrito_id)
+    # Obtenemos los items y el total desde la sesión
+    item_ids = request.session.get('boleta_items', [])
+    items = ItemCarrito.objects.filter(id__in=item_ids)
+    total = request.session.get('boleta_total', 0)
+
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="boleta.pdf"'
+    
+    generar_boleta_pdf(response, request.user, items, total)
+    
+    return response
 
+def generar_boleta_pdf(response, usuario, items, total):
     p = canvas.Canvas(response, pagesize=letter)
-    width, height = letter
-
-    p.setFont("Helvetica-Bold", 20)
-    p.drawString(30, height - 50, "Boleta de Compra")
-
     p.setFont("Helvetica", 12)
-    p.drawString(30, height - 80, f"Comprador: {request.user.username}")
-    p.drawString(30, height - 100, f"Email: {request.user.email}")
+    
+    # Encabezado
+    p.setFont("Helvetica-Bold", 16)
+    p.drawString(100, 750, "Boleta de Compra")
+    
+    # Información del comprador
+    p.setFont("Helvetica", 12)
+    p.drawString(100, 730, f"Comprador: {usuario.username}")
+    p.drawString(100, 710, f"Email: {usuario.email}")
+    
+    # Detalles de la compra
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(100, 680, "Detalles de la Compra:")
 
-    p.drawString(30, height - 140, "Detalles de la Compra:")
-    y = height - 160
-    total = 0
-    for item in carrito.items.all():
-        p.drawString(30, y, f"{item.producto.nombre} - {item.cantidad} x ${item.producto.precio} CLP")
-        total += item.total()
-        y -= 20
-
-    p.drawString(30, y - 20, f"Total: ${total} CLP")
-
-    p.setFont("Helvetica-Oblique", 10)
-    p.drawString(30, 30, "Gracias por su compra!")
-
+    y_position = 660
+    p.setFont("Helvetica", 12)
+    for item in items:
+        p.drawString(100, y_position, f"Producto: {item.producto.nombre} - Cantidad: {item.cantidad} - Precio: ${item.total():.2f} CLP")
+        y_position -= 20
+    
+    # Total de la compra
+    p.setFont("Helvetica-Bold", 12)
+    p.drawString(100, y_position - 20, f"Total: ${total:.2f} CLP")
+    
     p.showPage()
     p.save()
-
-    return response
