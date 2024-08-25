@@ -310,15 +310,20 @@ def paypal_return(request):
         items = list(carrito.items.all())  # Guardamos los items antes de vaciar el carrito
         total = sum(float(item.total()) for item in items)  # Convertir a float
 
-        # Vaciar el carrito
-        carrito.items.all().delete()
-
-        # Guardar los items y el total en la sesión
+        # Guardar los items y el total en la sesión antes de vaciar
         request.session['boleta_items'] = [item.id for item in items]
-        request.session['boleta_total'] = float(total)  # Asegurar que el total esté en formato float
+        request.session['boleta_total'] = float(total)
+
+        # Debug: Verificar datos en la sesión
+        print("Item IDs guardados en sesión:", request.session['boleta_items'])
+        print("Total guardado en sesión:", request.session['boleta_total'])
+
+        # No eliminar los items aquí, los eliminaremos después de generar la boleta
+
         return redirect('thank_you')
     else:
         return render(request, 'html/error.html', {'error': payment.error})
+
 
 @login_required
 def paypal_cancel(request):

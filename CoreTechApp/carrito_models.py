@@ -1,4 +1,3 @@
-
 from django.db import models
 from django.contrib.auth.models import User
 from .models import Producto
@@ -14,8 +13,8 @@ class ItemCarrito(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.PositiveIntegerField(default=1)
 
-    def __str__(self):
-        return f"{self.producto.nombre} x {self.cantidad}"
-
     def total(self):
         return self.producto.precio * self.cantidad
+
+    def __str__(self):
+        return f"{self.producto.nombre} x {self.cantidad}"
