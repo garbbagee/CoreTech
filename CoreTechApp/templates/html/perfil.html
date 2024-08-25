@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Perfil de {{ user.username }}</h1>
+        <p>Correo electrónico: {{ user.email }}</p>
+        
+        <h2>Historial de Compras</h2>
+        {% if historial_compras %}
+            <ul>
+                {% for compra in historial_compras %}
+                    <li>{{ compra.producto.nombre }} - {{ compra.fecha_compra }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No hay compras registradas.</p>
+        {% endif %}
+
+        <h2>Opciones de Perfil</h2>
+        <ul>
+            <li><a href="#">Cambiar Nombre de Usuario</a></li>
+            <li><a href="#">Borrar Historial de Compras</a></li>
+        </ul>
+    </div>
+
+</body>
+</html>

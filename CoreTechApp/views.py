@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.http import HttpResponse
 import json
@@ -22,6 +22,7 @@ import random
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from decimal import Decimal
+from .models import HistorialCompra
 
 
 def index(request):
@@ -174,6 +175,17 @@ def login_view(request):
             return JsonResponse({"status": "error", "message": "Correo electrónico o contraseña incorrectos."})
 
     return render(request, 'cuenta.html')
+
+def user_logout(request):
+    logout(request)
+    return redirect('index')  # Cambia 'index' por el nombre de la URL a la que quieres redirigir al usuario después del logout
+
+
+
+def perfil(request):
+    historial_compras = HistorialCompra.objects.filter(usuario=request.user)
+    return render(request, 'html/perfil.html', {'user': request.user, 'historial_compras': historial_compras})
+
 
 def listaProductos(request):
     productos = Producto.objects.all()

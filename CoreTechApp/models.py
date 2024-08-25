@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Producto(models.Model):
     CATEGORIAS = [
@@ -17,3 +18,10 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
 
+class HistorialCompra(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    producto = models.ForeignKey('CoreTechApp.Producto', on_delete=models.CASCADE)  # Ajuste aquí para referencia de cadena
+    fecha_compra = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.usuario.username} - {self.producto.nombre} - {self.fecha_compra}"
