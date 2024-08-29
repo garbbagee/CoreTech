@@ -54,23 +54,32 @@
                     <a class="nav-link active" href="{% url 'acercade' %}"><i class='bx bxs-contact'></i> Quiénes somos</a>
                 </li>
                 <li class="nav-itemCarrito">
-                    <a class="nav-link active" aria-current="page" href="{% url 'ver_carrito' %}">
-                        <i class='bx bx-cart-download'></i> Carro de compras
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'cuenta' %}"><i class='bx bx-user'></i> Cuenta</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Categoria
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="{% url 'GamaAlta' %}">Gama Alta</a></li>
-                        <li><a class="dropdown-item" href="{% url 'GamaMedia' %}">Gama Media</a></li>
-                        <li><a class="dropdown-item" href="{% url 'GamaBaja' %}">Gama Baja</a></li>
-                    </ul>
-                </li>
+                  <a class="nav-link active" aria-current="page" href="{% url 'ver_carrito' %}">
+                      <i class='bx bx-cart-download'></i> Carro de compras
+                  </a>
+              </li>
+              {% if user.is_authenticated %}
+                  <li class="nav-item">
+                      <a class="nav-link active" href="{% url 'perfil' %}"><i class='bx bx-user'></i> {{ user.username }}</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link active" href="{% url 'logout' %}"><i class='bx bx-log-out'></i> Cerrar Sesión</a>
+                  </li>
+              {% else %}
+                  <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="{% url 'cuenta' %}"><i class='bx bx-user'></i> Cuenta</a>
+                  </li>
+              {% endif %}
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Categoria
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="{% url 'GamaAlta' %}">Gama Alta</a></li>
+                      <li><a class="dropdown-item" href="{% url 'GamaMedia' %}">Gama Media</a></li>
+                      <li><a class="dropdown-item" href="{% url 'GamaBaja' %}">Gama Baja</a></li>
+                  </ul>
+              </li>
                 {% if request.user.is_authenticated and request.user.email == "admin@gmail.com" %}
                 <li class="nav-item">
                     <a class="nav-link active" href="{% url 'agregarProducto' %}"><i class='bx bxs-plus-square'></i> Agregar Producto</a>
