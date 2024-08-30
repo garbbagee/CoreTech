@@ -139,6 +139,7 @@ h4 {
 .carousel-item img {
   object-fit: cover;
   height: 100%;
+  border-radius: 25%;
 }
 
 
@@ -579,3 +580,5 @@ html {
 .fade-in {
   animation: fadeIn 2s ease-in;
 }
+
+
