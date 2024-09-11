@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.http import HttpResponse
 import json
-from .forms import ProductoForm, Producto
+from .forms import ProductoForm, Producto, UsernameChangeForm  
 from django.contrib.auth.decorators import login_required
 from .carrito_models import Carrito, ItemCarrito
 from django.conf import settings
@@ -15,6 +15,7 @@ from .paypal import paypalrestsdk
 import logging
 from decimal import Decimal
 from django.urls import reverse
+from django.utils import timezone
 import random
 from django.shortcuts import render
 from .models import Producto
@@ -23,6 +24,28 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from decimal import Decimal
 from .models import HistorialCompra
+
+
+
+
+from django.http import JsonResponse
+from .models import Producto
+
+
+
+def buscar_productos(request):
+    query = request.GET.get('q', '')
+    productos = Producto.objects.filter(nombre__icontains=query)
+    productos_data = list(productos.values('id', 'nombre', 'descripcion', 'precio', 'imagen'))  # Solo los campos necesarios
+    return JsonResponse({'productos': productos_data})
+
+
+
+
+
+
+
+
 
 
 def index(request):
@@ -326,11 +349,16 @@ def paypal_return(request):
         request.session['boleta_items'] = [item.id for item in items]
         request.session['boleta_total'] = float(total)
 
-        # Debug: Verificar datos en la sesión
-        print("Item IDs guardados en sesión:", request.session['boleta_items'])
-        print("Total guardado en sesión:", request.session['boleta_total'])
+        # Guardar los productos comprados en el historial de compras del usuario
+        for item in items:
+            HistorialCompra.objects.create(
+                usuario=request.user,
+                producto=item.producto,
+                fecha_compra=timezone.now()
+            )
 
-        # No eliminar los items aquí, los eliminaremos después de generar la boleta
+        # Limpiar el carrito después de guardar el historial
+        carrito.items.all().delete()
 
         return redirect('thank_you')
     else:
@@ -388,3 +416,38 @@ def generar_boleta_pdf(response, usuario, items, total):
     
     p.showPage()
     p.save()
+    
+    
+
+@login_required
+def perfil(request):
+    historial_compras = HistorialCompra.objects.filter(usuario=request.user)
+    
+    if request.method == 'POST':
+        form = UsernameChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'¡Nombre de usuario actualizado con éxito a {request.user.username}!')
+            return redirect('perfil')
+        else:
+            messages.error(request, 'Hubo un error al actualizar el nombre de usuario. Por favor, intenta nuevamente.')
+    else:
+        form = UsernameChangeForm(instance=request.user)
+    
+    return render(request, 'html/perfil.html', {
+        'user': request.user,
+        'historial_compras': historial_compras,
+        'form': form,
+    })
+
+@login_required
+def borrar_compra_individual(request, compra_id):
+    compra = get_object_or_404(HistorialCompra, id=compra_id, usuario=request.user)
+    compra.delete()
+    messages.success(request, 'Compra eliminada con éxito.')
+    return redirect('perfil')
+
+def borrar_historial(request):
+    HistorialCompra.objects.filter(usuario=request.user).delete()
+    messages.success(request, 'Historial de compras eliminado con éxito.')
+    return redirect('perfil')

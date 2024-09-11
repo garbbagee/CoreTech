@@ -75,10 +75,10 @@
                 </li>
                 {% endif %}
             </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search">
-                <a class="btn btn-primary" href="{% url 'index' %}" role="button">Buscar</a>
-            </form>
+            <form class="d-flex" id="search-form">
+              <input id="search-input" class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search">
+              <button class="btn btn-primary" type="submit">Buscar</button>
+          </form>
         </div>
     </div>
 </nav>
@@ -110,6 +110,37 @@
     <h4 style="color: white;">Seleccione sus productos</h4>
     <br>
   </div>
+
+
+  <center>
+    <div class="container">
+        <div class="row mb-4" id="product-list">
+            <!-- Los productos se actualizarán aquí -->
+        </div>
+    </div>
+</center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   <center>
     <div class="container">
@@ -145,6 +176,46 @@
     </div>
   </center>
 
+
+  <div id="contenedor-productos" class="container">
+    <div class="row mb-4">
+        {% for producto in productos %}
+        <div class="col-md-3 col-sm-6 col-12 mb-4">
+            <div class="card h-100">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ producto.nombre }}</h5>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#productModal"
+                            data-name="{{ producto.nombre }}"
+                            data-description="{{ producto.descripcion }}"
+                            data-price="${{ producto.precio }} CLP"
+                            data-image="{{ producto.image_url }}"
+                            data-producto-id="{{ producto.id }}">
+                        Seleccionar
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="product-list">
+  <!-- Aquí se actualizarán los productos -->
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script src="{% static 'js/java.js' %}"></script>
   <script>
@@ -174,5 +245,66 @@
       addToCartButton.href = `{% url 'agregar_al_carrito' 0 %}`.replace('0', productoId);
     });
   </script>
+
+
+
+
+
+
+<script>
+  document.getElementById('search-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const query = document.getElementById('search-input').value;
+      fetch(`/buscar-productos/?q=${encodeURIComponent(query)}`)
+          .then(response => response.json())
+          .then(data => {
+              const productList = document.getElementById('product-list');
+              productList.innerHTML = ''; // Limpia la lista de productos
+              let row = document.createElement('div');
+              row.classList.add('row', 'mb-4'); // Añade clase para el contenedor de productos
+
+              data.productos.forEach((producto, index) => {
+                  if (index > 0 && index % 4 === 0) {
+                      productList.appendChild(row);
+                      row = document.createElement('div');
+                      row.classList.add('row', 'mb-4');
+                  }
+
+                  const col = document.createElement('div');
+                  col.classList.add('col-md-3', 'col-sm-6', 'col-12', 'mb-4');
+                  col.innerHTML = `
+                      <div class="card h-100">
+                          ${producto.imagen ? 
+                              `<img src="${producto.imagen}" class="card-img-top tam" alt="${producto.nombre}">` :
+                              `<img src="https://via.placeholder.com/150" class="card-img-top tam" alt="No image available">`}
+                          <div class="card-body mt-3">
+                              <h5 class="card-title">${producto.nombre}</h5>
+                              <p class="card-text">${producto.descripcion.substring(0, 100)}...</p>
+                              <h6>${producto.precio} CLP</h6>
+                              <button class="btn btn-primary mt-auto" data-bs-toggle="modal" data-bs-target="#productModal"
+                                      data-name="${producto.nombre}"
+                                      data-description="${producto.descripcion}"
+                                      data-price="${producto.precio} CLP"
+                                      data-image="${producto.imagen}"
+                                      data-producto-id="${producto.id}">
+                                Seleccionar
+                              </button>
+                          </div>
+                      </div>
+                  `;
+                  row.appendChild(col);
+              });
+
+              productList.appendChild(row); // Añade la última fila de productos
+          })
+          .catch(error => {
+              console.error('Error:', error);
+          });
+  });
+</script>
+
+
+
+
 </body>
 </html>

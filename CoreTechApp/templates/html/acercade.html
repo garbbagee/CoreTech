@@ -9,28 +9,56 @@
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
   <style>
-    /* Estilo para las cards con tamaño personalizado */
-    .card.custom-size {
-      width: 100%;
+    .container-custom {
+      display: flex;
+      justify-content: center; /* Centra horizontalmente */
+      align-items: center; /* Centra verticalmente */
+      margin: 0 auto; /* Para centrar todo el contenedor en el centro */
+      flex-wrap: wrap;
+      min-height: calc(100vh - 150px); /* Ajuste para que el contenido esté centrado en la pantalla */
+      padding: 20px; /* Añadido padding para un mejor ajuste */
+  }
+  
+  .description-container {
+      flex: 0 0 55%; /* Ajuste de ancho para la descripción */
+      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      color: #fff;
+      min-width: 300px;
+      max-width: 100%;
+      height: auto; 
+      word-wrap: break-word;
+      margin-right: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Añadido sombra para darle profundidad */
+  }
+  
+  .carousel-container {
+      flex: 0 0 35%; /* Ajuste para hacer el carrusel más pequeño */
+      margin-left: 20px;
+      min-width: 300px;
       height: auto;
-    }
-
-    /* Ajuste para la imagen dentro de la card */
-    .card.custom-size img {
+  }
+  
+  .carousel-item img {
       height: auto;
-      max-height: 60%;
+      max-height: 380px; /* Ajuste de la altura del carrusel */
       object-fit: cover;
-    }
-
-    /* Ajuste para el cuerpo de la card */
-    .card.custom-size .card-body {
-      height: auto;
-      overflow: hidden;
-    }
+      width: 100%;
+  }
+  
+  body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-color: #0f144d; /* Deja el fondo de la página como estaba */
+  }
+  
+    
   </style>
 </head>
 
 <body>
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <img src="{% static 'img/LogoCoreTech.png' %}" alt="Logo CoreTech" width="40" height="34" class="d-inline-block align-text-top">
@@ -89,170 +117,58 @@
             </form>
         </div>
     </div>
-</nav>
+  </nav>
 
-  <div class="container mt-4">
-    <div class="row align-items-center">
-      <div class="col-lg-6 col-md-12 mb-4">
+  <!-- Content -->
+  <div class="container-custom">
+    <!-- Text description -->
+    <div class="description-container">
+      <p>
+        En CoreTech, nos dedicamos apasionadamente a ofrecerte lo último en tecnología y soluciones de hardware
+        para PC. Somos una empresa comprometida con la excelencia en la venta de productos electrónicos,
+        especializados en una amplia gama de artículos para el hogar y dispositivos esenciales para la vida
+        moderna.
+        
+        Nuestro objetivo es proporcionarte productos de la más alta calidad que se adapten a tus necesidades y
+        presupuesto. Desde componentes para PC de última generación hasta dispositivos electrónicos esenciales
+        para el hogar, como electrodomésticos y accesorios, nos enorgullece ofrecer una amplia selección para
+        satisfacer todos tus requerimientos tecnológicos.
+        
+        Además de ofrecer productos de primera calidad, nuestro equipo de expertos está aquí para brindarte
+        asesoramiento personalizado y apoyo técnico en la creación y armado de tu PC ideal. Queremos asegurarnos
+        de que obtengas la mejor experiencia tecnológica posible, y estamos aquí para guiarte en cada paso del
+        camino.
+        
+        Únete a la comunidad CoreTech hoy mismo y descubre cómo podemos llevarte al siguiente nivel en tecnología
+        y comodidad en tu vida diaria.
+      </p>
+    </div>
+
+    <!-- Carousel -->
+    <div class="carousel-container">
+      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="{% static 'img/informatico1.jpeg' %}" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'img/informatico2.jpg' %}" class="d-block w-100" alt="...">
+          </div>
+          <div class="carousel-item">
+            <img src="{% static 'img/informatico3.jpg' %}" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
     </div>
   </div>
 
-  <div class="container mt-4">
-    <div class="row align-items-center justify-content-center"> <!-- Modificación en esta línea -->
-      <div class="col-lg-6 col-md-12 mb-4">
-        <div class="card mx-auto card-max-height"> <!-- Añade la clase "card-max-height" aquí -->
-          <div class="card-body">
-            <p class="card-text card-text-animated">
-              En CoreTech, nos dedicamos apasionadamente a ofrecerte lo último en tecnología y soluciones de hardware
-              para PC. Somos una empresa comprometida con la excelencia en la venta de productos electrónicos,
-              especializados en una amplia gama de artículos para el hogar y dispositivos esenciales para la vida
-              moderna.
-              
-              Nuestro objetivo es proporcionarte productos de la más alta calidad que se adapten a tus necesidades y
-              presupuesto. Desde componentes para PC de última generación hasta dispositivos electrónicos esenciales
-              para el hogar, como electrodomésticos y accesorios, nos enorgullece ofrecer una amplia selección para
-              satisfacer todos tus requerimientos tecnológicos.
-             
-              Además de ofrecer productos de primera calidad, nuestro equipo de expertos está aquí para brindarte
-              asesoramiento personalizado y apoyo técnico en la creación y armado de tu PC ideal. Queremos asegurarnos
-              de que obtengas la mejor experiencia tecnológica posible, y estamos aquí para guiarte en cada paso del
-              camino.
-              
-              Únete a la comunidad CoreTech hoy mismo y descubre cómo podemos llevarte al siguiente nivel en tecnología
-              y comodidad en tu vida diaria.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-    
-  <br><br>
-  <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-lg-6 col-md-12">
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="{% static 'img/informatico1.jpeg' %}" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="{% static 'img/informatico2.jpg' %}" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-              <img src="{% static 'img/informatico3.jpg' %}" class="d-block w-100" alt="...">
-            </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-
-  <!-- Nueva sección con múltiples filas de cards -->
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-        <div class="card custom-size">
-          <img src="{% static 'img/producto1.png' %}" class="card-img-top" alt="Producto 1">
-          <div class="card-body">
-            <h5 class="card-title">Producto 1</h5>
-            <p class="card-text">Descripción breve del producto 1.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-        <div class="card custom-size">
-          <img src="{% static 'img/producto2.png' %}" class="card-img-top" alt="Producto 2">
-          <div class="card-body">
-            <h5 class="card-title">Producto 2</h5>
-            <p class="card-text">Descripción breve del producto 2.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-        <div class="card custom-size">
-          <img src="{% static 'img/producto3.png' %}" class="card-img-top" alt="Producto 3">
-          <div class="card-body">
-            <h5 class="card-title">Producto 3</h5>
-            <p class="card-text">Descripción breve del producto 3.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Segunda fila de cards -->
-    <div class="row">
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-        <div class="card custom-size">
-          <img src="{% static 'img/producto4.png' %}" class="card-img-top" alt="Producto 4">
-          <div class="card-body">
-            <h5 class="card-title">Producto 4</h5>
-            <p class="card-text">Descripción breve del producto 4.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-        <div class="card custom-size">
-          <img src="{% static 'img/producto5.png' %}" class="card-img-top" alt="Producto 5">
-          <div class="card-body">
-            <h5 class="card-title">Producto 5</h5>
-            <p class="card-text">Descripción breve del producto 5.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
-        <div class="card custom-size">
-          <img src="{% static 'img/producto6.png' %}" class="card-img-top" alt="Producto 6">
-          <div class="card-body">
-            <h5 class="card-title">Producto 6</h5>
-            <p class="card-text">Descripción breve del producto 6.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <script src="{% static 'js/java.js' %}"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // Elemento con el texto que queremos animar
-      const texto = document.querySelector('.card-text-animated');
-      // Texto original
-      const textoOriginal = texto.innerText;
-      // Tiempo de espera entre cada letra (en milisegundos)
-      const delay = 30;
-
-      // Limpiamos el contenido del elemento
-      texto.innerText = '';
-
-      // Función para agregar el texto con animación de escritura progresiva
-      function escribirTexto(texto, textoCompleto, index, delay) {
-        if (index < textoCompleto.length) {
-          // Agregamos la siguiente letra al texto
-          texto.innerHTML += textoCompleto.charAt(index);
-          // Incrementamos el índice para la siguiente letra
-          index++;
-          // Llamamos a la función de nuevo después del tiempo de espera
-          setTimeout(function() {
-            escribirTexto(texto, textoCompleto, index, delay);
-          }, delay);
-        }
-      }
-
-      // Llamamos a la función para empezar la animación cuando el contenido se haya cargado
-      escribirTexto(texto, textoOriginal, 0, delay);
-    });
-  </script>
 </body>
 </html>

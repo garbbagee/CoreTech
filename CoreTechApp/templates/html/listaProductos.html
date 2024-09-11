@@ -1,39 +1,178 @@
 <!-- templates/html/listaProductos.html -->
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
+{% load static %}
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Productos</title>
+    <!-- Incluyendo Bootstrap y estilos adicionales -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            background-color: #f8f9fa;
+        }
+        .container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .table-container {
+            width: 90%; /* Ocupa el 90% del ancho de la pantalla */
+            height: 75vh; /* Altura relativa a la ventana del navegador */
+            overflow-y: auto; /* Permitir desplazamiento vertical */
+        }
+        .table th, .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+        .table img {
+            border-radius: 5px;
+        }
+        .card-header {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .no-image {
+            font-style: italic;
+            color: #777;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            margin-top: auto; /* Esto empuja el footer al final de la página */
+        }
+    </style>
 </head>
 <body>
-    <h2>Lista de Productos</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Precio</th>
-                <th>Categoría</th>
-                <th>Imagen</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for producto in productos %}
-            <tr>
-                <td>{{ producto.nombre }}</td>
-                <td>{{ producto.descripcion }}</td>
-                <td>{{ producto.precio }}</td>
-                <td>{{ producto.get_categoria_display }}</td>
-                <td>
-                    {% if producto.imagen %}
-                    <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" width="100">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <img src="{% static 'img/LogoCoreTech.png' %}" alt="Logo CoreTech" width="40" height="34" class="d-inline-block align-text-top">
+            <a class="navbar-brand" href="{% url 'index' %}">CoreTech</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}"><i class='bx bxs-home'></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'acercade' %}"><i class='bx bxs-contact'></i> Quiénes somos</a>
+                    </li>
+                    <li class="nav-itemCarrito">
+                        <a class="nav-link active" aria-current="page" href="{% url 'ver_carrito' %}">
+                            <i class='bx bx-cart-download'></i> Carro de compras
+                        </a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'perfil' %}"><i class='bx bx-user'></i> {{ user.username }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'logout' %}"><i class='bx bx-log-out'></i> Cerrar Sesión</a>
+                        </li>
                     {% else %}
-                    No hay imagen disponible
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{% url 'cuenta' %}"><i class='bx bx-user'></i> Cuenta</a>
+                        </li>
                     {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Categoria
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{% url 'GamaAlta' %}">Gama Alta</a></li>
+                            <li><a class="dropdown-item" href="{% url 'GamaMedia' %}">Gama Media</a></li>
+                            <li><a class="dropdown-item" href="{% url 'GamaBaja' %}">Gama Baja</a></li>
+                        </ul>
+                    </li>
+                    {% if request.user.is_authenticated and request.user.email == "admin@gmail.com" %}
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'agregarProducto' %}"><i class='bx bxs-plus-square'></i> Agregar Producto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'listaProductos' %}"><i class='bx bx-list-ul'></i> Lista de Productos</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Buscar producto" aria-label="Search">
+                    <a class="btn btn-primary" href="{% url 'index' %}" role="button">Buscar</a>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenedor Principal -->
+    <div class="container">
+        <div class="card table-container">
+            <div class="card-header">
+                <h2>Lista de Productos</h2>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Precio</th>
+                            <th>Categoría</th>
+                            <th>Imagen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for producto in productos %}
+                        <tr>
+                            <td>{{ producto.nombre }}</td>
+                            <td>{{ producto.descripcion }}</td>
+                            <td>{{ producto.precio }}</td>
+                            <td>{{ producto.get_categoria_display }}</td>
+                            <td>
+                                {% if producto.imagen %}
+                                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}" width="100">
+                                {% else %}
+                                <span class="no-image">No hay imagen disponible</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de página -->
+    <footer>
+        &copy; 2024 CoreTech. Todos los derechos reservados.
+    </footer>
+
+    <!-- Bootstrap JS y Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

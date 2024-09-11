@@ -3,28 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchCharacters();
 });
 
-function fetchCharacters() {
-    fetch('https://rickandmortyapi.com/api/character')
-        .then(response => response.json())
-        .then(data => {
-            const characters = data.results.slice(0, 6); // Obtén los primeros 6 personajes
-            const cards = document.querySelectorAll('.card.custom-size');
 
-            characters.forEach((character, index) => {
-                if (cards[index]) {
-                    const img = cards[index].querySelector('img');
-                    const title = cards[index].querySelector('.card-title');
-                    const text = cards[index].querySelector('.card-text');
-
-                    img.src = character.image;
-                    img.alt = character.name;
-                    title.textContent = character.name;
-                    text.textContent = `Status: ${character.status}`;
-                }
-            });
-        })
-        .catch(error => console.error('Error fetching characters:', error));
-}
 
 function aumentarCard(cardId) {
     const card = document.getElementById(cardId);

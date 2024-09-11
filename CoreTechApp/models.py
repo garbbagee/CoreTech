@@ -20,8 +20,8 @@ class Producto(models.Model):
 
 class HistorialCompra(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
-    producto = models.ForeignKey('CoreTechApp.Producto', on_delete=models.CASCADE)  # Ajuste aquí para referencia de cadena
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     fecha_compra = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.usuario.username} - {self.producto.nombre} - {self.fecha_compra}"
+        return f'{self.usuario.username} - {self.producto.nombre} - {self.fecha_compra}'

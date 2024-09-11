@@ -4,7 +4,7 @@ from .views import (index, acercade, carrocompras, cuenta, gama_alta, gama_media
                     torrega3, torrega4, torregb1, torregb2, torregb3, torregb4, torregm1, torregm2, torregm3, torregm4,
                     register, login_view, user_logout, perfil, agregarProducto, listaProductos, 
                     agregar_al_carrito, ver_carrito, eliminar_del_carrito, procesar_pago, paypal_return, paypal_cancel, 
-                    modificarProducto, eliminarProducto, thank_you, descargar_boleta)
+                    modificarProducto, eliminarProducto, thank_you, descargar_boleta,borrar_historial)
 
 urlpatterns = [
     path('', index, name="index"),
@@ -12,6 +12,13 @@ urlpatterns = [
     path('carrocompras/', carrocompras, name='carrocompras'),
     path('cuenta/', cuenta, name='cuenta'),
     path('GamaAlta/', gama_alta, name='GamaAlta'),
+    path('buscar-productos/', views.buscar_productos, name='buscar_productos'),
+
+
+
+
+
+
     path('GamaMedia/', gama_media, name='GamaMedia'),
     path('GamaBaja/', gama_baja, name='GamaBaja'),
     path('torrega1/', torrega1, name='torrega1'),
@@ -41,5 +48,8 @@ urlpatterns = [
     path('modificar/', modificarProducto, name='modificar_producto'),
     path('eliminarProducto/', eliminarProducto, name='eliminar_producto'),
     path('thank_you/', thank_you, name='thank_you'),
-    path('descargar_boleta/', descargar_boleta, name='descargar_boleta')
+    path('descargar_boleta/', descargar_boleta, name='descargar_boleta'),
+    path('borrar_historial/', borrar_historial, name='borrar_historial'),
+    path('perfil/borrar_compra/<int:compra_id>/', views.borrar_compra_individual, name='borrar_compra_individual'),
+    path('perfil/borrar_compra/<int:compra_id>/', views.borrar_compra_individual, name='borrar_compra_individual'),    
 ]
