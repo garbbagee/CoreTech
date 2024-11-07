@@ -24,12 +24,9 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from decimal import Decimal
 from .models import HistorialCompra
-
-
-
-
 from django.http import JsonResponse
 from .models import Producto
+from django.views.decorators.csrf import csrf_exempt
 
 
 
@@ -333,6 +330,8 @@ def procesar_pago(request):
         logging.error(pago.error)
         return HttpResponse("Error al crear el pago en PayPal")
 
+from django.utils import timezone
+
 @login_required
 def paypal_return(request):
     payment_id = request.GET.get('paymentId')
@@ -345,8 +344,8 @@ def paypal_return(request):
         items = list(carrito.items.all())  # Guardamos los items antes de vaciar el carrito
         total = sum(float(item.total()) for item in items)  # Convertir a float
 
-        # Guardar los items y el total en la sesión antes de vaciar
-        request.session['boleta_items'] = [item.id for item in items]
+        # Guardar los items y el total en la sesión antes de vaciar el carrito
+        request.session['boleta_items'] = [{'producto': item.producto.nombre, 'cantidad': item.cantidad, 'precio': float(item.producto.precio)} for item in items]
         request.session['boleta_total'] = float(total)
 
         # Guardar los productos comprados en el historial de compras del usuario
@@ -365,6 +364,8 @@ def paypal_return(request):
         return render(request, 'html/error.html', {'error': payment.error})
 
 
+
+
 @login_required
 def paypal_cancel(request):
     return render(request, 'html/cancel.html')
@@ -376,18 +377,26 @@ def thank_you(request):
 @login_required
 def descargar_boleta(request):
     # Obtenemos los items y el total desde la sesión
-    item_ids = request.session.get('boleta_items', [])
-    items = ItemCarrito.objects.filter(id__in=item_ids)
+    items_data = request.session.get('boleta_items', [])
     total = request.session.get('boleta_total', 0)
 
+    # Depuración: Verificar que estamos obteniendo los items
+    print("Datos de items solicitados para la boleta:", items_data)
+
+    if not items_data:
+        print("No se encontraron items para la boleta.")
+
+    # Crear la respuesta PDF
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="boleta.pdf"'
     
-    generar_boleta_pdf(response, request.user, items, total)
+    # Generar el contenido de la boleta PDF
+    generar_boleta_pdf(response, request.user, items_data, total)
     
     return response
 
-def generar_boleta_pdf(response, usuario, items, total):
+
+def generar_boleta_pdf(response, usuario, items_data, total):
     p = canvas.Canvas(response, pagesize=letter)
     p.setFont("Helvetica", 12)
     
@@ -406,8 +415,8 @@ def generar_boleta_pdf(response, usuario, items, total):
 
     y_position = 660
     p.setFont("Helvetica", 12)
-    for item in items:
-        p.drawString(100, y_position, f"Producto: {item.producto.nombre} - Cantidad: {item.cantidad} - Precio: ${item.total():.2f} CLP")
+    for item_data in items_data:
+        p.drawString(100, y_position, f"Producto: {item_data['producto']} - Cantidad: {item_data['cantidad']} - Precio: ${item_data['precio']:.2f} CLP")
         y_position -= 20
     
     # Total de la compra
@@ -416,7 +425,8 @@ def generar_boleta_pdf(response, usuario, items, total):
     
     p.showPage()
     p.save()
-    
+
+
     
 
 @login_required
@@ -451,3 +461,27 @@ def borrar_historial(request):
     HistorialCompra.objects.filter(usuario=request.user).delete()
     messages.success(request, 'Historial de compras eliminado con éxito.')
     return redirect('perfil')
+
+@csrf_exempt  # Permite el uso de la autenticación CSRF para solicitudes AJAX
+def eliminar_usuario(request):
+    if request.method == 'POST':
+        # Parsear los datos JSON enviados
+        data = json.loads(request.body.decode('utf-8'))
+        password = data.get('password', '')
+
+        # Verificar que el usuario no sea el administrador
+        if request.user.email == "admin@gmail.com":
+            return JsonResponse({'success': False, 'error': 'No puedes eliminar al administrador.'})
+
+        # Autenticar al usuario con la contraseña proporcionada
+        user = authenticate(username=request.user.username, password=password)
+
+        if user is not None:
+            # Si la autenticación es exitosa, eliminar al usuario y cerrar sesión
+            request.user.delete()
+            logout(request)
+            return JsonResponse({'success': True})
+        else:
+            return JsonResponse({'success': False, 'error': 'Contraseña incorrecta.'})
+    
+    return JsonResponse({'success': False, 'error': 'Método no permitido.'})

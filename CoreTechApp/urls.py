@@ -4,7 +4,7 @@ from .views import (index, acercade, carrocompras, cuenta, gama_alta, gama_media
                     torrega3, torrega4, torregb1, torregb2, torregb3, torregb4, torregm1, torregm2, torregm3, torregm4,
                     register, login_view, user_logout, perfil, agregarProducto, listaProductos, 
                     agregar_al_carrito, ver_carrito, eliminar_del_carrito, procesar_pago, paypal_return, paypal_cancel, 
-                    modificarProducto, eliminarProducto, thank_you, descargar_boleta,borrar_historial)
+                    modificarProducto, eliminarProducto, thank_you, descargar_boleta,borrar_historial, eliminar_usuario)
 
 urlpatterns = [
     path('', index, name="index"),
@@ -18,6 +18,7 @@ urlpatterns = [
 
 
 
+    path('perfil/eliminar_usuario/', eliminar_usuario, name='eliminar_usuario'),
 
     path('GamaMedia/', gama_media, name='GamaMedia'),
     path('GamaBaja/', gama_baja, name='GamaBaja'),

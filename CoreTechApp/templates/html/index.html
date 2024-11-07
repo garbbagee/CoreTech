@@ -42,11 +42,16 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="{% url 'acercade' %}"><i class='bx bxs-contact'></i> Quiénes somos</a>
                 </li>
+                
+                <!-- Solo mostrar el Carro de compras si el usuario está autenticado -->
+                {% if user.is_authenticated %}
                 <li class="nav-itemCarrito">
                     <a class="nav-link active" aria-current="page" href="{% url 'ver_carrito' %}">
                         <i class='bx bx-cart-download'></i> Carro de compras
                     </a>
                 </li>
+                {% endif %}
+                
                 {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link active" href="{% url 'perfil' %}"><i class='bx bx-user'></i> {{ user.username }}</a>
@@ -176,14 +181,14 @@
       {% endfor %}
     </div>
 
-    <div class="row">
+    <div class="row justify-content-center">
       <div style="color: white;">
         <br><br>
         <h3 style="text-align: center; color: white; font-weight: bold; letter-spacing: 1px;">Productos en oferta</h3>
         <br>
       </div>
       {% for producto in productos_oferta %}
-      <div class="col-md-3 col-sm-6 col-12 mb-4">
+      <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-4">
         <div class="card h-100">
           <img src="{{ producto.image_url }}" class="card-img-top tam" alt="{{ producto.nombre }}">
           <div class="card-body d-flex flex-column">
@@ -203,6 +208,10 @@
       </div>
       {% endfor %}
     </div>
+    
+    
+    
+    
 
     <br><br>
     <h1 class="centrarTextoW">Marcas con las que trabajamos</h1>
@@ -284,6 +293,31 @@
     });
   </script>
   <script src="{% static 'js/java.js' %}"></script>
+  <script>  
+  // Función para manejar el evento de agregar al carrito
+function manejarAgregarAlCarrito(authenticated) {
+    // Obtenemos todos los botones de agregar al carrito
+    const botonesAgregar = document.querySelectorAll('.btn-agregar-carrito');
+    
+    botonesAgregar.forEach(boton => {
+        boton.addEventListener('click', function(event) {
+            // Obtenemos el ID del producto que está en el botón (atributo data-id)
+            const productId = boton.getAttribute('data-id');
+
+            // Si el usuario no está autenticado, mostramos el modal
+            if (!authenticated) {
+                event.preventDefault(); // Evitamos que el formulario o el botón haga algo más
+                const modal = new bootstrap.Modal(document.getElementById('loginRequiredModal'));
+                modal.show();
+            } else {
+                // El usuario está autenticado, lo redirigimos a la URL para agregar al carrito
+                const url = `/agregar_al_carrito/${productId}/`;  // Ajusta la URL según tu vista de Django
+                window.location.href = url;  // Redirige a la URL de agregar al carrito
+            }
+        });
+    });
+}
+</script>
 </body>
 </html>
 

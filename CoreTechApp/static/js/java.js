@@ -3,6 +3,30 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchCharacters();
 });
 
+// Función para manejar el evento de agregar al carrito
+function manejarAgregarAlCarrito(authenticated) {
+    // Obtenemos el botón de agregar al carrito
+    const botonAgregar = document.getElementById('addToCartLink');
+    
+    botonAgregar.addEventListener('click', function(event) {
+        // Si el usuario no está autenticado, mostramos el modal
+        if (!authenticated) {
+            event.preventDefault(); // Evitamos la acción por defecto del botón
+            const modal = new bootstrap.Modal(document.getElementById('loginRequiredModal'));
+            modal.show(); // Mostramos el modal
+        } else {
+            // Si el usuario está autenticado, permitimos agregar el producto al carrito
+            const productId = botonAgregar.getAttribute('data-id');
+            window.location.href = `/agregar/${productId}/`; // Redirigimos para agregar el producto
+        }
+    });
+}
+
+// Ejecutamos la función con la variable de autenticación
+document.addEventListener('DOMContentLoaded', function() {
+    manejarAgregarAlCarrito(isAuthenticated);
+});
+
 
 
 function aumentarCard(cardId) {
@@ -402,3 +426,5 @@ document.getElementById("total").addEventListener("submit", function(event) {
 document.addEventListener('DOMContentLoaded', function() {
   document.body.classList.add('fade-in');
 });
+
+
